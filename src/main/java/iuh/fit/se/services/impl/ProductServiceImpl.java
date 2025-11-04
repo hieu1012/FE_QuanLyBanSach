@@ -74,6 +74,7 @@ public class ProductServiceImpl implements ProductService {
     public ApiResponse save(Product product) {
         return restClient.post()
                 .uri(ENDPOINT + "/products")
+                .contentType(MediaType.APPLICATION_JSON)  // thêm dòng này
                 .accept(MediaType.APPLICATION_JSON)
                 .body(product)
                 .exchange((request, response) -> {
@@ -92,6 +93,7 @@ public class ProductServiceImpl implements ProductService {
     public ApiResponse update(int id, Product product) {
         return restClient.put()
                 .uri(ENDPOINT + "/products/{id}", id)
+                .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .body(product)
                 .exchange((request, response) -> {
@@ -105,6 +107,7 @@ public class ProductServiceImpl implements ProductService {
                     }
                 });
     }
+
 
     @Override
     public ApiResponse delete(int id) {

@@ -1,7 +1,9 @@
 package iuh.fit.se.controllers;
 
 import iuh.fit.se.entities.Product;
+import iuh.fit.se.entities.Category;
 import iuh.fit.se.services.ProductService;
+import iuh.fit.se.services.CategoryService;
 import iuh.fit.se.utils.ApiResponse;
 import iuh.fit.se.utils.PageResponse;
 import jakarta.servlet.http.HttpSession;
@@ -17,10 +19,12 @@ import java.util.*;
 public class ProductController {
 
     private final ProductService productService;
+    private final CategoryService categoryService;
 
     @Autowired
-    public ProductController(ProductService productService) {
+    public ProductController(ProductService productService, CategoryService categoryService) {
         this.productService = productService;
+        this.categoryService = categoryService;
     }
 
     // ==========================================================
@@ -42,12 +46,13 @@ public class ProductController {
         }
     }
 
-    private List<Product> extractList(ApiResponse response) {
+    @SuppressWarnings("unchecked")
+    private <T> List<T> extractList(ApiResponse response) {
         if (response == null || response.getErrors() != null || response.getData() == null) {
             return Collections.emptyList();
         }
         try {
-            return (List<Product>) response.getData();
+            return (List<T>) response.getData();
         } catch (ClassCastException e) {
             return Collections.emptyList();
         }
@@ -122,10 +127,17 @@ public class ProductController {
                            @RequestParam(value = "id", required = false) Integer id) {
         if (!isAdminLoggedIn(session)) return "redirect:/admin/login";
 
+        // Load product (nếu có id)
         Product product = (id != null) ? extractProduct(productService.findById(id)) : new Product();
+
+        // Load categories
+        ApiResponse categoryResponse = categoryService.findAll();
+        List<Category> categories = extractList(categoryResponse);
+
         Map<String, Object> user = (Map<String, Object>) session.getAttribute("currentUser");
 
         model.addAttribute("product", product);
+        model.addAttribute("categories", categories);
         model.addAttribute("currentUser", user);
         model.addAttribute("pageTitle", (id == null ? "Thêm sản phẩm mới" : "Cập nhật sản phẩm"));
         model.addAttribute("currentPage", "products");
@@ -133,6 +145,10 @@ public class ProductController {
 
         return "admin/dashboard-layout";
     }
+
+    // ==========================================================
+    // SAVE / UPDATE PRODUCT
+    // ==========================================================
 
     @PostMapping("/products/save")
     public String saveProduct(HttpSession session, @ModelAttribute Product product, Model model) {
@@ -143,7 +159,12 @@ public class ProductController {
                 : productService.update(product.getId(), product);
 
         if (response != null && response.getErrors() != null) {
+            // Load lại danh mục nếu có lỗi
+            ApiResponse categoryResponse = categoryService.findAll();
+            List<Category> categories = extractList(categoryResponse);
             Map<String, Object> user = (Map<String, Object>) session.getAttribute("currentUser");
+
+            model.addAttribute("categories", categories);
             model.addAttribute("errors", response.getErrors());
             model.addAttribute("product", product);
             model.addAttribute("currentUser", user);
