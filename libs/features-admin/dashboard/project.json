@@ -1,0 +1,26 @@
+{
+  "projectType": "library",
+  "root": "libs/features-admin/dashboard",
+  "sourceRoot": "libs/features-admin/dashboard/src",
+  "prefix": "emi",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/features-admin/dashboard"],
+      "options": {
+        "jestConfig": "libs/features-admin/dashboard/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/features-admin/dashboard/src/**/*.ts",
+          "libs/features-admin/dashboard/src/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

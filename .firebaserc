@@ -1,0 +1,18 @@
+{
+  "projects": {
+    "default": "project-emi-5ec92"
+  },
+  "targets": {
+    "project-emi-5ec92": {
+      "hosting": {
+        "admin": [
+          "admin-app-b7492"
+        ],
+        "emi": [
+          "project-emi-5ec92"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}

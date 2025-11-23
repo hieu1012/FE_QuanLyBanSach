@@ -1,0 +1,17 @@
+.header {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    background-color: white;
+    z-index: 100;
+}
+
+::ng-deep .ant-dropdown-menu {
+    border-radius: 12px !important; // Bo tổng thể menu
+    overflow: hidden;
+    margin-top: 16px !important;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+    min-width: 244px;
+    padding: 0;
+}

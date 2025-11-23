@@ -1,0 +1,41 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2017", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@emi/features-admin/dashboard": [
+        "libs/features-admin/dashboard/src/index.ts"
+      ],
+      "@emi/features-admin/dashboard/feature": [
+        "libs/features-admin/dashboard/feature/src/index.ts"
+      ],
+      "@emi/features-admin/setting": [
+        "libs/features-admin/setting/src/index.ts"
+      ],
+      "@emi/features-admin/setting/feature": [
+        "libs/features-admin/setting/feature/src/index.ts"
+      ],
+      "@emi/features/dashboard": ["libs/features/dashboard/src/index.ts"],
+      "@emi/features/footer": ["libs/features/footer/src/index.ts"],
+      "@emi/features/header": ["libs/features/header/src/index.ts"],
+      "@emi/features/home": ["libs/features/home/src/index.ts"],
+      "@emi/features/lookup": ["libs/features/lookup/src/index.ts"],
+      "@emi/features/register": ["libs/features/register/src/index.ts"],
+      "@emi/features/shell": ["libs/features/shell/src/index.ts"],
+      "@emi/shared/ui": ["libs/shared/ui/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

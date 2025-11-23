@@ -1,0 +1,183 @@
+<div class="w-full shadow-md border-2 md:border-0 bg-white md:fixed md:top-0 md:left-0 md:right-0 md:z-[100] ">
+    <div class="bg-[#2C3E5D] text-white text-sm px-4 sm:px-8 md:px-16 lg:px-24 xl:px-[147px] text-[14px] font-medium transition-all duration-300 ease-in-out overflow-hidden pointer-events-auto"
+        [ngStyle]="{
+            opacity: hideTopbar ? 0 : 1,
+            height: hideTopbar ? '0px' : '34px',
+            pointerEvents: hideTopbar ? 'none' : 'auto'
+        }">
+        <div class="max-w-[1440px] mx-auto h-full flex items-center justify-between">
+            <div class="flex space-x-2 sm:space-x-4 lg:space-x-6 items-center text-[10px]">
+                <div class="flex items-center space-x-1">
+                    <div class="flex items-center justify-center w-4 h-4 sm:w-5 sm:h-5 bg-white rounded-full">
+                        <i class="fas fa-phone text-red-500 transform scale-x-[-1] text-xs"></i>
+                    </div>
+                    <span class=" sm:text-sm ">1900 866 648</span>
+                </div>
+                <div class="hidden sm:flex  items-center space-x-1">
+                    <div class="flex items-center justify-center w-4 h-4 sm:w-5 sm:h-5 bg-white rounded-full">
+                        <i class="fas fa-phone text-red-500 transform scale-x-[-1] text-xs"></i>
+                    </div>
+                    <span class="sm:text-sm">096 1499066</span>
+                </div>
+                <div class="flex items-center space-x-1">
+                    <div class="flex items-center justify-center w-4 h-4 sm:w-5 sm:h-5 bg-white rounded-full">
+                        <i class="fas fa-envelope text-red-500 text-xs"></i>
+                    </div>
+                    <span class=" sm:text-sm">info@emigroup.vn</span>
+                </div>
+            </div>
+            <div class="text-[10px] sm:text-sm">Chính sách và quy định</div>
+        </div>
+    </div>
+
+    <div class="h-[55px] md:h-[68px] bg-white shadow-sm px-4 sm:px-8 md:px-16 lg:px-24 xl:px-[147px]">
+        <div class="max-w-[1440px] mx-auto h-full flex items-center justify-between">
+            <div class="flex items-center">
+                <div class="flex items-center space-x-4 mr-4 sm:mr-6 lg:mr-[40px]">
+                    <a routerLink="/" aria-label="Trang chủ">
+                        <img src="assets/shared/images/Logo.png" alt="Logo" class="h-8 sm:h-10" />
+                    </a>
+                </div>
+
+                <div class="hidden lg:flex space-x-6 xl:space-x-10 text-[16px] font-semibold">
+                    <a routerLink="/trang-chu" [ngClass]="{ 'text-red-600': isActive('/trang-chu') }"
+                        class="cursor-pointer hover:text-red-600">Trang chủ</a>
+                    <a routerLink="/dang-ky" [ngClass]="{ 'text-red-600': isActive('/dang-ky') }"
+                        class="cursor-pointer flex items-center space-x-1 hover:text-red-600">
+                        <span>Đăng ký thi</span>
+                        <i class="fas fa-chevron-down text-xs"></i>
+                    </a>
+                    <div class="cursor-pointer flex items-center space-x-1 hover:text-red-600 relative group">
+                        <span class="font-semibold mr-[3px]" [ngClass]="{ 'text-red-600': isActive('/tra-cuu') }">Tra
+                            cứu</span>
+                        <i
+                            class="fas fa-chevron-down text-xs transition-transform duration-200 group-hover:rotate-180"></i>
+                        <div
+                            class="absolute top-full left-0 mt-2 w-[244px] rounded-xl shadow-lg bg-white py-0 px-0 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-50">
+                            <ul class="py-0">
+                                <li><a routerLink="/tra-cuu/lich-thi"
+                                        [ngClass]="{ 'text-red-600': isActive('/tra-cuu/lich-thi') }"
+                                        class="block text-[18px] py-3 px-4 text-gray-400 hover:text-black hover:bg-gray-100 cursor-pointer rounded transition">Lịch
+                                        thi</a></li>
+                                <li><a routerLink="/tra-cuu/le-phi-thi"
+                                        [ngClass]="{ 'text-red-600': isActive('/tra-cuu/le-phi-thi') }"
+                                        class="block text-[18px] py-3 px-4 text-gray-400 hover:text-black hover:bg-gray-100 cursor-pointer rounded transition">Lệ
+                                        phí thi</a></li>
+                                <li><a routerLink="/tra-cuu/ket-qua-thi"
+                                        [ngClass]="{ 'text-red-600': isActive('/tra-cuu/ket-qua-thi') }"
+                                        class="block text-[18px] py-3 px-4 text-gray-400 hover:text-black hover:bg-gray-100 cursor-pointer rounded transition">Kết
+                                        quả thi</a></li>
+                                <li><a routerLink="/tra-cuu/de-thi-mau"
+                                        [ngClass]="{ 'text-red-600': isActive('/tra-cuu/de-thi-mau') }"
+                                        class="block text-[18px] py-3 px-4 text-gray-400 hover:text-black hover:bg-gray-100 cursor-pointer rounded transition">Đề
+                                        thi mẫu</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <a routerLink="/lien-he" [ngClass]="{ 'text-red-600': isActive('/lien-he') }"
+                        class="cursor-pointer hover:text-red-600">Liên hệ</a>
+                    <a routerLink="/gioi-thieu" [ngClass]="{ 'text-red-600': isActive('/gioi-thieu') }"
+                        class="cursor-pointer hover:text-red-600">Giới thiệu</a>
+                    <a routerLink="/tin-tuc" [ngClass]="{ 'text-red-600': isActive('/tin-tuc') }"
+                        class="cursor-pointer hover:text-red-600">Tin tức</a>
+                </div>
+            </div>
+
+            <div class="flex items-center space-x-3 ">
+                <div class="relative hidden md:block ">
+                    <i class="fas fa-search absolute top-2 left-2 text-gray-400 text-sm"></i>
+                    <input type="text" placeholder="Tìm kiếm ..."
+                        class="w-[200px] lg:w-[240px] xl:w-[286px] h-[40px] pl-7 border border-gray-300 rounded focus:outline-none text-sm" />
+                </div>
+                <div
+                    class="w-[32px] h-[32px] sm:w-[40px] sm:h-[40px] p-[4px] overflow-hidden rounded-lg border border-gray-200 shadow-sm flex items-center justify-center">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/21/Flag_of_Vietnam.svg" alt="VN"
+                        class="w-full h-full object-cover rounded-md" />
+                </div>
+                <button class="lg:hidden p-2 hover:bg-gray-100 rounded-lg transition-colors" (click)="openMobileMenu()">
+                    <i class="fas fa-bars text-lg"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Overlay -->
+    <div class="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden transition-all duration-300" *ngIf="showMobileMenu"
+        (click)="closeMobileMenu()"></div>
+
+    <!-- Mobile Menu -->
+    <div class="fixed top-0 right-0 h-full w-80 max-w-full bg-white z-50 lg:hidden transition-transform duration-300 shadow-2xl"
+        [class.translate-x-full]="!showMobileMenu" [class.translate-x-0]="showMobileMenu">
+        <div class="p-6 h-full overflow-y-auto">
+            <!-- Close Button -->
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-xl font-bold">Menu</h2>
+                <button class="p-2 hover:bg-gray-100 rounded-lg transition-colors" (click)="closeMobileMenu()">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <!-- Mobile Search -->
+            <div class="relative mb-6 md:hidden">
+                <i class="fas fa-search absolute top-1/2 left-3 transform -translate-y-1/2 text-gray-400"></i>
+                <input type="text" placeholder="Tìm kiếm ..."
+                    class="w-full h-12 pl-10 pr-3 border border-gray-300 rounded-lg focus:outline-none focus:border-red-500" />
+            </div>
+            <!-- Mobile Navigation -->
+            <nav class="space-y-4">
+                <a routerLink="/trang-chu" (click)="closeMobileMenu()"
+                    [ngClass]="{ 'text-red-600 bg-red-50': isActive('/trang-chu') }"
+                    class="block py-3 px-4 font-semibold rounded-lg">Trang chủ</a>
+                <a routerLink="/dang-ky" (click)="closeMobileMenu()"
+                    [ngClass]="{ 'text-red-600 bg-red-50': isActive('/dang-ky') }"
+                    class="block py-3 px-4 font-semibold hover:bg-gray-50 rounded-lg transition-colors">Đăng ký thi</a>
+                <div>
+                    <button type="button"
+                        class="w-full flex items-center justify-between py-3 px-4 font-semibold hover:bg-gray-50 rounded-lg transition-colors"
+                        (click)="toggleMobileDropdown('lookup')">
+                        <span [ngClass]="{ 'text-red-600': isActive('/tra-cuu') }">Tra cứu</span>
+                        <i class="fas fa-chevron-down text-sm transition-transform"
+                            [class.rotate-180]="mobileDropdown.lookup"></i>
+                    </button>
+                    <div class="ml-4 mt-2 space-y-2 overflow-hidden transition-all duration-300"
+                        [style.maxHeight]="mobileDropdown.lookup ? '500px' : '0px'">
+                        <a routerLink="/tra-cuu/lich-thi" (click)="closeMobileMenu()"
+                            [ngClass]="{ 'text-red-600 bg-red-50': isActive('/tra-cuu/lich-thi') }"
+                            class="block py-2 px-4 text-gray-400 hover:text-black hover:bg-gray-100 rounded transition-colors">Lịch
+                            thi</a>
+                        <a routerLink="/tra-cuu/le-phi-thi" (click)="closeMobileMenu()"
+                            [ngClass]="{ 'text-red-600 bg-red-50': isActive('/tra-cuu/le-phi-thi') }"
+                            class="block py-2 px-4 text-gray-400 hover:text-black hover:bg-gray-100 rounded transition-colors">Lệ
+                            phí thi</a>
+                        <a routerLink="/tra-cuu/ket-qua-thi" (click)="closeMobileMenu()"
+                            [ngClass]="{ 'text-red-600 bg-red-50': isActive('/tra-cuu/ket-qua-thi') }"
+                            class="block py-2 px-4 text-gray-400 hover:text-black hover:bg-gray-100 rounded transition-colors">Kết
+                            quả thi</a>
+                        <a routerLink="/tra-cuu/de-thi-mau" (click)="closeMobileMenu()"
+                            [ngClass]="{ 'text-red-600 bg-red-50': isActive('/tra-cuu/de-thi-mau') }"
+                            class="block py-2 px-4 text-gray-400 hover:text-black hover:bg-gray-100 rounded transition-colors">Đề
+                            thi mẫu</a>
+                    </div>
+                </div>
+                <a routerLink="/lien-he" (click)="closeMobileMenu()"
+                    [ngClass]="{ 'text-red-600 bg-red-50': isActive('/lien-he') }"
+                    class="block py-3 px-4 font-semibold hover:bg-gray-50 rounded-lg transition-colors">Liên hệ</a>
+                <a routerLink="/gioi-thieu" (click)="closeMobileMenu()"
+                    [ngClass]="{ 'text-red-600 bg-red-50': isActive('/gioi-thieu') }"
+                    class="block py-3 px-4 font-semibold hover:bg-gray-50 rounded-lg transition-colors">Giới thiệu</a>
+                <a routerLink="/tin-tuc" (click)="closeMobileMenu()"
+                    [ngClass]="{ 'text-red-600 bg-red-50': isActive('/tin-tuc') }"
+                    class="block py-3 px-4 font-semibold hover:bg-gray-50 rounded-lg transition-colors">Tin tức</a>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<div class="md:h-[102px]"></div>
+
+<button *ngIf="showScrollTopBtn" (click)="scrollToTop()"
+    class="fixed bottom-5 right-5 z-[999] sm:hidden bg-red-600 text-white rounded-full p-3 shadow-lg transition-all duration-300 hover:bg-red-700 active:scale-95"
+    aria-label="Lên đầu trang">
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
+    </svg>
+</button>

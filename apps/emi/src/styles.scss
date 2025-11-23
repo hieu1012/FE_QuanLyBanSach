@@ -1,0 +1,23 @@
+/* You can add global styles to this file, and also import other style files */
+@import "@fontsource/be-vietnam-pro"; // Nếu dùng @fontsource
+@import "~ng-zorro-antd/ng-zorro-antd.min.css";
+@import "~@progress/kendo-theme-default/dist/all.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    @apply font-sans;
+    background-color: #F4F6FA;
+}
+
+// Override các component ngZorro nếu cần
+:root {
+    --font-family: 'Be Vietnam Pro', sans-serif;
+}
+
+// Đảm bảo tất cả text đều sử dụng font này
+* {
+    font-family: 'Be Vietnam Pro', sans-serif;
+}

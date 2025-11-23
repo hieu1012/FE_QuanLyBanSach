@@ -1,0 +1,69 @@
+/* Trong home.component.scss hoặc global styles */
+.filter-red {
+    filter: brightness(0) saturate(100%) invert(27%) sepia(99%) saturate(747%) hue-rotate(343deg) brightness(103%) contrast(105%);
+}
+
+::ng-deep .swiper-button-prev,
+::ng-deep .swiper-button-next {
+    background-color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 9999px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    color: #00407f;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 45%;
+    transform: translateY(-50%);
+    z-index: 20;
+}
+
+@media (max-width: 768px) {
+
+    ::ng-deep .swiper-button-prev,
+    ::ng-deep .swiper-button-next {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+::ng-deep .swiper-button-prev {
+    left: 0;
+}
+
+::ng-deep .swiper-button-next {
+    right: 0;
+}
+
+::ng-deep .swiper-button-prev::after,
+::ng-deep .swiper-button-next::after {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* Pagination DOT phía dưới ngoài swiper */
+::ng-deep .news-swiper-pagination,
+::ng-deep .exam-swiper-pagination {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 24px;
+}
+
+::ng-deep .news-swiper-pagination .swiper-pagination-bullet,
+::ng-deep .exam-swiper-pagination .swiper-pagination-bullet {
+    width: 13px;
+    height: 13px;
+    border-radius: 9999px;
+    background-color: #ef4444;
+    opacity: 0.3;
+    transition: all 0.3s ease;
+}
+
+::ng-deep .news-swiper-pagination .swiper-pagination-bullet-active,
+::ng-deep .exam-swiper-pagination .swiper-pagination-bullet-active {
+    opacity: 1;
+    background-color: #ef4444;
+}

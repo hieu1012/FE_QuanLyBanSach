@@ -1,0 +1,26 @@
+{
+  "projectType": "library",
+  "root": "libs/features/footer",
+  "sourceRoot": "libs/features/footer/src",
+  "prefix": "emi",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/features/footer"],
+      "options": {
+        "jestConfig": "libs/features/footer/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/features/footer/src/**/*.ts",
+          "libs/features/footer/src/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

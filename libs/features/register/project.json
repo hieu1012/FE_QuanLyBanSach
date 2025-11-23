@@ -1,0 +1,26 @@
+{
+  "projectType": "library",
+  "root": "libs/features/register",
+  "sourceRoot": "libs/features/register/src",
+  "prefix": "emi",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/features/register"],
+      "options": {
+        "jestConfig": "libs/features/register/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/features/register/src/**/*.ts",
+          "libs/features/register/src/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

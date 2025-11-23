@@ -1,0 +1,115 @@
+{
+  "projectType": "application",
+  "root": "apps/emi",
+  "sourceRoot": "apps/emi/src",
+  "prefix": "emi",
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "outputPath": "dist/apps/emi",
+        "index": "apps/emi/src/index.html",
+        "main": "apps/emi/src/main.ts",
+        "polyfills": "apps/emi/src/polyfills.ts",
+        "tsConfig": "apps/emi/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          "apps/emi/src/favicon.ico",
+          "apps/emi/src/assets",
+          {
+            "glob": "**/*",
+            "input": "libs/shared/assets",
+            "output": "assets/shared"
+          }
+        ],
+        "styles": [
+          "libs/shared/ui/src/styles/tailwind.scss",
+          "node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
+          "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
+          "node_modules/aos/dist/aos.css",
+          "node_modules/swiper/swiper-bundle.min.css",
+          "apps/emi/src/styles.scss"
+        ],
+        "stylePreprocessorOptions": {
+          "includePaths": [
+            "libs/shared/ui/src/styles"
+          ]
+        },
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "2mb",
+              "maximumError": "3mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "6kb",
+              "maximumError": "10kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/emi/src/environments/environment.ts",
+              "with": "apps/emi/src/environments/environment.prod.ts"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "emi:build:production"
+        },
+        "development": {
+          "browserTarget": "emi:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "emi:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "apps/emi/src/**/*.ts",
+          "apps/emi/src/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": [
+        "coverage/apps/emi"
+      ],
+      "options": {
+        "jestConfig": "apps/emi/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

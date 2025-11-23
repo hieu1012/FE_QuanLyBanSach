@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "projects": {
+    "admin": "apps/admin",
+    "admin-e2e": "apps/admin-e2e",
+    "emi": "apps/emi",
+    "emi-e2e": "apps/emi-e2e",
+    "features-admin-dashboard": "libs/features-admin/dashboard",
+    "features-admin-setting": "libs/features-admin/setting",
+    "features-footer": "libs/features/footer",
+    "features-header": "libs/features/header",
+    "features-home": "libs/features/home",
+    "features-lookup": "libs/features/lookup",
+    "features-register": "libs/features/register",
+    "features-shell": "libs/features/shell",
+    "shared-ui": "libs/shared/ui"
+  }
+}

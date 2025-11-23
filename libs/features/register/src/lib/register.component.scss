@@ -1,0 +1,55 @@
+.custom-date-input {
+
+    /* Ẩn icon mặc định */
+    &::-webkit-calendar-picker-indicator {
+        opacity: 0;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        cursor: pointer;
+    }
+
+    /* Firefox */
+    &::-moz-calendar-picker-indicator {
+        display: none;
+    }
+
+    /* Styling cơ bản */
+    font-family: inherit;
+
+    &:invalid {
+        color: #9ca3af;
+    }
+
+    &:valid {
+        color: #374151;
+    }
+}
+
+// ==================================
+
+::ng-deep .ant-modal-wrap {
+    z-index: 1000 !important;
+}
+
+::ng-deep .ant-modal {
+    z-index: 1001 !important;
+}
+
+::ng-deep .ant-modal-content {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3) !important;
+}
+
+::ng-deep .ant-modal-body {
+    padding: 0 !important;
+}
+
+/* Debug - temporary red background */
+::ng-deep .ant-modal-content {
+    background: red !important;
+    /* Temporary để test */
+}
