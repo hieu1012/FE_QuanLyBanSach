@@ -1,5 +1,5 @@
 module.exports = {
-  displayName: 'features-admin-setting',
+  displayName: 'features-admin-login',
   preset: '../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
@@ -8,7 +8,7 @@ module.exports = {
       stringifyContentPathRegex: '\\.(html|svg)$',
     },
   },
-  coverageDirectory: '../../../coverage/libs/features-admin/setting',
+  coverageDirectory: '../../../coverage/libs/features-admin/login',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': 'jest-preset-angular',
   },

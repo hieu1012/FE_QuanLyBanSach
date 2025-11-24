@@ -1,0 +1,26 @@
+{
+  "projectType": "library",
+  "root": "libs/features-admin/shared/data-access",
+  "sourceRoot": "libs/features-admin/shared/data-access/src",
+  "prefix": "emi",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/features-admin/shared/data-access"],
+      "options": {
+        "jestConfig": "libs/features-admin/shared/data-access/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/features-admin/shared/data-access/src/**/*.ts",
+          "libs/features-admin/shared/data-access/src/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

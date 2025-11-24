@@ -1,0 +1,26 @@
+{
+  "projectType": "library",
+  "root": "libs/features-admin/shared/shell",
+  "sourceRoot": "libs/features-admin/shared/shell/src",
+  "prefix": "emi",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/features-admin/shared/shell"],
+      "options": {
+        "jestConfig": "libs/features-admin/shared/shell/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/features-admin/shared/shell/src/**/*.ts",
+          "libs/features-admin/shared/shell/src/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

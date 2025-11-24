@@ -21,11 +21,21 @@
       "@emi/features-admin/dashboard/feature": [
         "libs/features-admin/dashboard/feature/src/index.ts"
       ],
+      "@emi/features-admin/login": ["libs/features-admin/login/src/index.ts"],
       "@emi/features-admin/setting": [
         "libs/features-admin/setting/src/index.ts"
       ],
       "@emi/features-admin/setting/feature": [
         "libs/features-admin/setting/feature/src/index.ts"
+      ],
+      "@emi/features-admin/shared/data-access": [
+        "libs/features-admin/shared/data-access/src/index.ts"
+      ],
+      "@emi/features-admin/shared/login": [
+        "libs/features-admin/shared/login/src/index.ts"
+      ],
+      "@emi/features-admin/shared/shell": [
+        "libs/features-admin/shared/shell/src/index.ts"
       ],
       "@emi/features/dashboard": ["libs/features/dashboard/src/index.ts"],
       "@emi/features/footer": ["libs/features/footer/src/index.ts"],
@@ -34,6 +44,7 @@
       "@emi/features/lookup": ["libs/features/lookup/src/index.ts"],
       "@emi/features/register": ["libs/features/register/src/index.ts"],
       "@emi/features/shell": ["libs/features/shell/src/index.ts"],
+      "@emi/shared/shell": ["libs/shared/shell/src/index.ts"],
       "@emi/shared/ui": ["libs/shared/ui/src/index.ts"]
     }
   },

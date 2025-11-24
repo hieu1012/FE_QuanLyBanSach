@@ -6,9 +6,7 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/emi",
         "index": "apps/emi/src/index.html",
@@ -34,9 +32,7 @@
           "apps/emi/src/styles.scss"
         ],
         "stylePreprocessorOptions": {
-          "includePaths": [
-            "libs/shared/ui/src/styles"
-          ]
+          "includePaths": ["libs/shared/ui/src/styles"]
         },
         "scripts": []
       },
@@ -94,17 +90,12 @@
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {
-        "lintFilePatterns": [
-          "apps/emi/src/**/*.ts",
-          "apps/emi/src/**/*.html"
-        ]
+        "lintFilePatterns": ["apps/emi/src/**/*.ts", "apps/emi/src/**/*.html"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": [
-        "coverage/apps/emi"
-      ],
+      "outputs": ["coverage/apps/emi"],
       "options": {
         "jestConfig": "apps/emi/jest.config.js",
         "passWithNoTests": true

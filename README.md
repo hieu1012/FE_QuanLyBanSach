@@ -15,9 +15,8 @@
 ## Một số câu lệnh sử dụng
 
 -   Tạo lib mới
-    `npx nx g @nrwl/angular:lib <tên thư mục cần tạo> --directory <tên thư mục cha>`
-    <!-- npx nx g @nrwl/angular:lib feature --directory=features/test-quan-ly-diem -->
-<!-- npx nx g @nrwl/angular:component quan-li-diem-test  --project=features-test-quan-ly-diem-feature  --flat -->
+nx g @nrwl/angular:library shell --directory=features-admin/shared
+
 -   Xóa lib
     `nx g remove <lib-name>`
     > Note: Để lấy tên của lib có thể vào Angular.json trong dự án để lấy tên lib cần xóa </br>
