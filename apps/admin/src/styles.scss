@@ -1,4 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
+@import "@progress/kendo-theme-default/dist/all.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -19,9 +20,11 @@ body {
     overflow-x: hidden !important;
     height: auto !important;
 }
+
 /* END FIX */
 
-header, footer {
+header,
+footer {
     position: relative;
     z-index: 4;
 }
@@ -37,6 +40,7 @@ header, footer {
 
 .bg-oval {
     position: relative;
+
     &:before {
         content: "";
         width: 100%;
@@ -47,6 +51,7 @@ header, footer {
         inset: 0;
         z-index: -1;
     }
+
     &:after {
         content: "";
         width: 200px;
@@ -63,25 +68,30 @@ header, footer {
 
 .bg-gradient {
     position: relative;
-    &::before, &::after {
+
+    &::before,
+    &::after {
         content: "";
         width: 100%;
         height: 100%;
         position: absolute;
         z-index: 1;
     }
+
     &::before {
         right: 0;
         top: 0;
         background: url("/assets/web/radial-gradient-top-right.png") no-repeat;
         background-size: cover;
     }
+
     &::after {
         left: 0;
         bottom: 0;
         background: url("/assets/web/radial-gradient-bottom-left.png") no-repeat;
         background-size: contain;
     }
+
     .container {
         position: relative;
         z-index: 3;
@@ -98,11 +108,13 @@ header, footer {
     height: 40px;
     outline: 0;
     padding: 5px 10px;
-    border-radius: 4px ;
+    border-radius: 4px;
 }
 
 .form-group {
-    label sup, .help {
+
+    label sup,
+    .help {
         color: #e54848;
     }
 }
@@ -124,9 +136,11 @@ header, footer {
             border-radius: 0.2rem;
         }
     }
+
     &.ant-select-single:not(.ant-select-customize-input) .ant-select-selector .ant-select-selection-search-input {
         height: 35px;
     }
+
     &.ant-select-focused:not(.ant-select-disabled).ant-select:not(.ant-select-customize-input) {
         .ant-select-selector {
             box-shadow: unset;
@@ -148,15 +162,19 @@ header, footer {
         }
     }
 }
-.ant-popover-inner-content{
+
+.ant-popover-inner-content {
     padding: 3px 3px !important;
 }
+
 .ant-input-number-input-wrap {
     margin-top: 4px;
 }
+
 .ant-picker-focused {
     box-shadow: none !important;
 }
+
 .btn-primary {
     margin-top: 15px;
     width: 180px;
@@ -164,7 +182,7 @@ header, footer {
     padding: 8px 12px;
     color: #ffffff;
     background: #0063E2;
-    box-shadow: 1px 4px 6px rgba(0,127,243,0.2);
+    box-shadow: 1px 4px 6px rgba(0, 127, 243, 0.2);
     cursor: pointer;
     border-radius: 8px;
 
@@ -184,7 +202,7 @@ header, footer {
     color: #0063E2;
     background: #FFFFFF;
     border: 1px solid #0063E2;
-    box-shadow: 1px 4px 6px rgba(0,127,243,0.2);
+    box-shadow: 1px 4px 6px rgba(0, 127, 243, 0.2);
     cursor: pointer;
     border-radius: 8px;
 }
@@ -192,8 +210,10 @@ header, footer {
 .tab-course {
     .ant-tabs-nav {
         @apply rounded-[22px] p-[24px] w-[350px] h-full;
+
         .ant-tabs-tab {
             @apply h-[52px] rounded-[30px];
+
             &-btn {
                 @apply truncate;
                 text-align: left;
@@ -201,17 +221,21 @@ header, footer {
                 font-size: 16px;
                 color: #435267;
             }
+
             &-active {
                 background: #F5F9FE;
+
                 .ant-tabs-tab-btn {
                     color: #0063E2;
                 }
             }
         }
+
         .ant-tabs-ink-bar {
             display: none;
         }
     }
+
     .ant-tabs-content-holder {
         // border: none !important;
     }
@@ -219,18 +243,22 @@ header, footer {
 
 .view-list {
     display: flex;
+
     .item-image {
         flex-basis: 30%;
         padding-bottom: 200px;
+
         span {
             top: 0;
             bottom: unset;
             border-radius: 0 0 10px 0;
         }
     }
+
     .item-content {
         flex: 1;
         min-width: 0;
+
         button {
             max-width: 200px;
             position: absolute;
@@ -239,13 +267,16 @@ header, footer {
         }
     }
 }
+
 @media only screen and (max-width: 1000px) {
     .tab-course {
         flex-direction: column;
+
         .ant-tabs-nav {
             width: 100%;
             margin-bottom: 30px;
         }
+
         .ant-tabs-tabpane {
             padding-left: 0 !important;
         }
@@ -258,14 +289,18 @@ header, footer {
             flex-basis: 40%;
             padding-bottom: 180px;
         }
+
         .item-content {
             button {
                 max-width: 150px;
             }
         }
     }
+
     .bg-gradient {
-        &::before, &::after {
+
+        &::before,
+        &::after {
             width: 300px;
             height: 300px;
         }
@@ -298,6 +333,7 @@ header, footer {
 .active-payment {
     border-color: #01AA81;
     position: relative;
+
     &::before {
         content: "";
         width: 24px;
@@ -311,7 +347,7 @@ header, footer {
 }
 
 .ant-tabs-left>.ant-tabs-content-holder>.ant-tabs-content>.ant-tabs-tabpane {
-    padding-left: 0!important;
+    padding-left: 0 !important;
 }
 
 .ant-modal {
@@ -325,6 +361,7 @@ header, footer {
         }
 
     }
+
     &-content {
         border-radius: 8px !important;
     }
@@ -334,6 +371,7 @@ header, footer {
     .ant-pagination-item {
         border: 1px solid #F1F1F1;
         color: #333;
+
         &:hover {
             background: #2F80ED;
             border: 1px solid #2F80ED;
@@ -345,11 +383,16 @@ header, footer {
         border: 1px solid #2F80ED;
     }
 
-    .ant-pagination-item-active a, .ant-pagination-item:focus-visible a, .ant-pagination-item:hover a {
+    .ant-pagination-item-active a,
+    .ant-pagination-item:focus-visible a,
+    .ant-pagination-item:hover a {
         color: #fff;
     }
 
-    .ant-pagination-next:focus-visible .ant-pagination-item-link, .ant-pagination-next:hover .ant-pagination-item-link, .ant-pagination-prev:focus-visible .ant-pagination-item-link, .ant-pagination-prev:hover .ant-pagination-item-link {
+    .ant-pagination-next:focus-visible .ant-pagination-item-link,
+    .ant-pagination-next:hover .ant-pagination-item-link,
+    .ant-pagination-prev:focus-visible .ant-pagination-item-link,
+    .ant-pagination-prev:hover .ant-pagination-item-link {
         color: #2F80ED;
         border-color: #2F80ED;
     }
@@ -504,8 +547,7 @@ header, footer {
         }
     }
 
-    .ant-dropdown-menu-submenu-title {
-    }
+    .ant-dropdown-menu-submenu-title {}
 
     .ant-dropdown-menu-submenu-title {
         padding: 14px !important;
@@ -529,22 +571,27 @@ header, footer {
     margin-inline-end: 0;
     padding-inline-start: 40px;
 }
+
 /* @ckeditor/ckeditor5-list/theme/list.css */
 .ck-content ol ol {
     list-style-type: lower-latin;
 }
+
 /* @ckeditor/ckeditor5-list/theme/list.css */
 .ck-content ol ol ol {
     list-style-type: lower-roman;
 }
+
 /* @ckeditor/ckeditor5-list/theme/list.css */
 .ck-content ol ol ol ol {
     list-style-type: upper-latin;
 }
+
 /* @ckeditor/ckeditor5-list/theme/list.css */
 .ck-content ol ol ol ol ol {
     list-style-type: upper-roman;
 }
+
 /* @ckeditor/ckeditor5-list/theme/list.css */
 .ck-content ul {
     list-style-type: disc;
@@ -555,14 +602,17 @@ header, footer {
     margin-inline-end: 0;
     padding-inline-start: 40px;
 }
+
 /* @ckeditor/ckeditor5-list/theme/list.css */
 .ck-content ul ul {
     list-style-type: circle;
 }
+
 /* @ckeditor/ckeditor5-list/theme/list.css */
 .ck-content ul ul ul {
     list-style-type: square;
 }
+
 /* @ckeditor/ckeditor5-list/theme/list.css */
 .ck-content ul ul ul ul {
     list-style-type: square;

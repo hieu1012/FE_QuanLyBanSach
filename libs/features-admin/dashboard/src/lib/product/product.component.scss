@@ -1,0 +1,19 @@
+.pagination-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+
+/* Nút phân trang cao bằng nhau */
+.pagination-wrapper ::ng-deep .ant-pagination-item,
+.pagination-wrapper ::ng-deep .ant-pagination-prev,
+.pagination-wrapper ::ng-deep .ant-pagination-next {
+  height: 36px;
+  line-height: 36px;
+  min-width: 36px;
+}
+
+/* Nút size changer và quick jumper đồng bộ chiều cao */
+.pagination-wrapper ::ng-deep .ant-pagination-options {
+  height: 36px;
+}

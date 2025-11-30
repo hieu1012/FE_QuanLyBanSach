@@ -12,4 +12,9 @@ export const appRoutes: Routes = [
         loadChildren: () =>
             import('@emi/features-admin/login').then(m => m.LoginModule),
     },
+    {
+        path: 'dashboard',
+        loadChildren: () =>
+            import('@emi/features-admin/dashboard').then(m => m.FeaturesAdminDashboardModule),
+    }
 ];

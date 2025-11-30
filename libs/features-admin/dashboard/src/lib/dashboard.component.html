@@ -1,1 +1,96 @@
-<p>dashboard works!</p>
+<nz-layout style="height: 100vh; overflow: hidden;">
+    <!-- SIDEBAR -->
+    <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="null" [nzWidth]="256" [nzCollapsedWidth]="80"
+        style="background: #001529;">
+        <!-- LOGO -->
+        <div style="
+        height: 64px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 20px;
+        font-weight: bold;
+        border-bottom: 1px solid #333;
+      ">
+            <span [hidden]="isCollapsed">MY ADMIN</span>
+            <span [hidden]="!isCollapsed">MA</span>
+        </div>
+
+        <!-- MENU -->
+        <ul nz-menu nzTheme="dark" nzMode="inline"
+            style="padding-top: 16px; height: calc(100vh - 64px); overflow: auto;">
+            <li nz-menu-item routerLink="." [routerLinkActiveOptions]="{ exact: true }"
+                routerLinkActive="ant-menu-item-selected">
+                <i nz-icon nzType="home"></i>
+                <span>Tổng quan</span>
+            </li>
+
+            <li nz-menu-item routerLink="users" routerLinkActive="ant-menu-item-selected">
+                <i nz-icon nzType="user"></i>
+                <span>Người dùng</span>
+            </li>
+
+            <li nz-menu-item routerLink="products" routerLinkActive="ant-menu-item-selected">
+                <i nz-icon nzType="shopping-cart"></i>
+                <span>Sản phẩm</span>
+            </li>
+
+            <li nz-menu-item routerLink="orders" routerLinkActive="ant-menu-item-selected">
+                <i nz-icon nzType="unordered-list"></i>
+                <span>Đơn hàng</span>
+            </li>
+
+            <li nz-menu-item style="position: absolute; bottom: 16px; width: 100%;">
+                <i nz-icon nzType="logout"></i>
+                <span>Đăng xuất</span>
+            </li>
+        </ul>
+    </nz-sider>
+
+    <!-- MAIN LAYOUT -->
+    <nz-layout>
+        <!-- HEADER -->
+        <nz-header style="
+        background: white;
+        padding: 0 24px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 64px;
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
+      ">
+            <!-- Nút gập sidebar -->
+            <!-- <button (click)="isCollapsed = !isCollapsed" style="background: none; border: none;">
+                <i nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'" style="font-size: 20px;"></i>
+            </button> -->
+
+            <!-- ⭐ TIÊU ĐỀ TRANG ⭐ -->
+            <h2 style="margin: 0; font-size: 20px; font-weight: 600;">
+                {{ pageTitle }}
+            </h2>
+
+            <!-- Avatar + Notification -->
+            <div style="display: flex; align-items: center; gap: 16px;">
+                <nz-badge [nzCount]="5">
+                    <i nz-icon nzType="bell" style="font-size: 20px;"></i>
+                </nz-badge>
+                <nz-avatar nzSrc="https://i.pravatar.cc/150?img=12"></nz-avatar>
+                <span style="font-weight: 500;">Admin Pro</span>
+            </div>
+        </nz-header>
+
+        <!-- CONTENT -->
+        <nz-content style="margin: 24px; overflow: hidden;">
+            <div style="
+          background: white;
+          border-radius: 8px;
+          padding: 24px;
+          height: calc(100vh - 64px - 48px);
+          overflow: auto;
+        ">
+                <router-outlet></router-outlet>
+            </div>
+        </nz-content>
+    </nz-layout>
+</nz-layout>

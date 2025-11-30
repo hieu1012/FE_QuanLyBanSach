@@ -23,21 +23,14 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this.authService.login(this.username, this.password).subscribe({
       next: (res) => {
-        console.log('Đăng nhập thành công!', res);
-        if(res){
-          this.productService.getProduct().subscribe({
-          next: (productRes) => {
-            console.log('Product data:', productRes);
-          },
-          error: (productErr) => {
-            console.error('Failed to fetch product data', productErr);
-          }
-        });
-        }
+        // console.log('Đăng nhập thành công!', res);
+        // chuyển sang trang dashboard
+        alert('Đăng nhập thành công!');
+        window.location.href = '/dashboard';
       },
       error: (err) => {
-        this.error = 'Sai tài khoản hoặc mật khẩu!';
-        console.error('Login failed', err);
+        alert(err.error?.message);
+        // console.error('Login failed', err);
       }
     });
   }
