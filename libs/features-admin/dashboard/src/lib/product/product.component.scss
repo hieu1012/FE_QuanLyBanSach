@@ -1,19 +1,28 @@
-.pagination-wrapper {
+::ng-deep .ant-table-pagination {
   display: flex;
-  justify-content: flex-end;
-  margin-top: 16px;
+  align-items: center;
 }
 
-/* Nút phân trang cao bằng nhau */
-.pagination-wrapper ::ng-deep .ant-pagination-item,
-.pagination-wrapper ::ng-deep .ant-pagination-prev,
-.pagination-wrapper ::ng-deep .ant-pagination-next {
-  height: 36px;
-  line-height: 36px;
-  min-width: 36px;
+::ng-deep .ant-pagination-options {
+  display: flex;
+  align-items: center;
 }
 
-/* Nút size changer và quick jumper đồng bộ chiều cao */
-.pagination-wrapper ::ng-deep .ant-pagination-options {
-  height: 36px;
+/* Giúp dropdown chọn page-size và các nút trang cùng độ cao */
+::ng-deep .ant-pagination-options-size-changer .ant-select-selector {
+  height: 32px !important;    /* hoặc 36px nếu thấy đẹp hơn */
+  align-items: center;
+  display: flex;
+}
+::ng-deep .ant-pagination-item,
+::ng-deep .ant-pagination-prev,
+::ng-deep .ant-pagination-next,
+::ng-deep .ant-pagination-jump-next,
+::ng-deep .ant-pagination-jump-prev {
+  height: 32px;
+  min-width: 32px;
+  line-height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

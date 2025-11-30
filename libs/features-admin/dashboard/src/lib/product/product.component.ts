@@ -1,60 +1,51 @@
 import { Component, OnInit } from '@angular/core';
-
+import { NzTableQueryParams } from 'ng-zorro-antd/table';
+import { RandomUserService } from './test';
 @Component({
   selector: 'emi-product',
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.scss'],
 })
 export class ProductComponent implements OnInit {
-
-  searchValue = '';
-  visible = false;
-
-  pageIndex = 1;
+  total = 1;
+  listOfRandomUser: any[] = [];
+  loading = true;
   pageSize = 10;
-
-  listOfData: any[] = [
-    { name: 'John Brown', age: 32, address: 'New York No. 1 Lake Park' },
-    { name: 'Jim Green', age: 42, address: 'London No. 1 Lake Park' },
-    { name: 'Joe Black', age: 32, address: 'Sidney No. 1 Lake Park' },
-    { name: 'Jim Red', age: 32, address: 'London No. 2 Lake Park' }
+  pageIndex = 1;
+  filterGender = [
+    { text: 'male', value: 'male' },
+    { text: 'female', value: 'female' }
   ];
 
-  listOfDisplayData: any[] = []; // Kết quả filter/search
-  pageData: any[] = [];         // Kết quả trang hiện tại
+  loadDataFromServer(
+    pageIndex: number,
+    pageSize: number,
+    sortField: string | null,
+    sortOrder: string | null,
+    filter: Array<{ key: string; value: string[] }>
+  ): void {
+    this.loading = true;
+    this.randomUserService.getUsers(pageIndex, pageSize, sortField, sortOrder, filter).subscribe(data => {
+      this.loading = false;
+      this.total = 200; // mock the total data here
+      this.listOfRandomUser = data.results;
+    });
+  }
+
+  onQueryParamsChange(params: NzTableQueryParams): void {
+    console.log(params);
+    const { pageSize, pageIndex, sort, filter } = params;
+    const currentSort = sort.find(item => item.value !== null);
+    const sortField = (currentSort && currentSort.key) || null;
+    const sortOrder = (currentSort && currentSort.value) || null;
+    this.loadDataFromServer(pageIndex, pageSize, sortField, sortOrder, filter);
+  }
+
+  constructor(private randomUserService: RandomUserService) { }
 
   ngOnInit(): void {
-    this.listOfDisplayData = [...this.listOfData]; // để filter dùng
-    this.updatePageData();
+    this.loadDataFromServer(this.pageIndex, this.pageSize, null, null, []);
   }
+  getTotal = (total: number) => `Tổng cộng ${total} sản phẩm`;
 
-  reset(): void {
-    this.searchValue = '';
-    this.search();
-  }
-
-  search(): void {
-    this.visible = false;
-    this.listOfDisplayData = this.listOfData.filter(item =>
-      item.name.toLowerCase().includes(this.searchValue.toLowerCase())
-    );
-    this.pageIndex = 1;
-    this.updatePageData();
-  }
-
-  onPageChange(): void {
-    this.updatePageData();
-  }
-
-  onPageSizeChange(size: number): void {
-    this.pageSize = size;
-    this.pageIndex = 1;
-    this.updatePageData();
-  }
-
-  updatePageData(): void {
-    const start = (this.pageIndex - 1) * this.pageSize;
-    const end = this.pageIndex * this.pageSize;
-    this.pageData = this.listOfDisplayData.slice(start, end);
-  }
 }
