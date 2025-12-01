@@ -9,8 +9,35 @@ import { Observable } from 'rxjs';
 })
 export class ProductService extends BaseHttpService {
 
-    getProduct(): Observable<any> {    
-            return this.get('products', {}  );
-        }
+    getProduct(): Observable<any> {
+        return this.get('products', {});
+    }
+
+    getProductsHasPage(
+        page: number = 0,
+        size: number = 20,
+        sort: string[] = [],
+        keyword?: string,
+        categoryId?: number,
+        minPrice?: number,
+        maxPrice?: number,
+        minStock?: number
+    ): Observable<any> {
+        const params: any = {
+            page,
+            size,
+        };
+        if (sort.length) params.sort = sort;
+        if (keyword) params.keyword = keyword;
+        if (categoryId !== undefined) params.categoryId = categoryId;
+        if (minPrice !== undefined) params.minPrice = minPrice;
+        if (maxPrice !== undefined) params.maxPrice = maxPrice;
+        if (minStock !== undefined) params.minStock = minStock;
+        return this.get('products/hasPage', params);
+    }
+
+    addProduct(product: any): Observable<any> {
+        return this.post<any>('products', product);
+    }
 
 }

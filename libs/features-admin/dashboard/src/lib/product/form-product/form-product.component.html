@@ -1,0 +1,117 @@
+<div class="flex flex-col h-full max-h-[70vh]">
+    <!-- Header cố định -->
+    <div class="p-6 pb-4 border-b border-gray-200 bg-white flex-shrink-0">
+        <h3 class="text-lg font-semibold text-gray-800">Thêm sản phẩm mới</h3>
+    </div>
+
+    <!-- Form content - scrollable -->
+    <div class="flex-1 overflow-y-auto p-6">
+        <form [formGroup]="productForm" (ngSubmit)="submitForm()" nz-form nzLayout="vertical" class="space-y-4">
+            <!-- Tên sản phẩm -->
+            <nz-form-item>
+                <nz-form-label nzRequired class="font-semibold">Tên sản phẩm</nz-form-label>
+                <nz-form-control nzErrorTip="Vui lòng nhập tên sản phẩm">
+                    <input nz-input formControlName="title" placeholder="Nhập tên sản phẩm"
+                        class="rounded-md hover:border-blue-400 focus:border-blue-500 transition-colors" />
+                </nz-form-control>
+            </nz-form-item>
+
+            <!-- Mô tả -->
+            <nz-form-item>
+                <nz-form-label class="font-semibold">Mô tả</nz-form-label>
+                <nz-form-control>
+                    <textarea nz-input formControlName="description" placeholder="Nhập mô tả sản phẩm"
+                        [nzAutosize]="{ minRows: 3, maxRows: 6 }"
+                        class="rounded-md hover:border-blue-400 focus:border-blue-500 transition-colors"></textarea>
+                </nz-form-control>
+            </nz-form-item>
+
+            <!-- Danh mục -->
+            <nz-form-item>
+                <nz-form-label nzRequired class="font-semibold">Danh mục</nz-form-label>
+                <nz-form-control nzErrorTip="Vui lòng chọn danh mục">
+                    <nz-select formControlName="categoryId" nzAllowClear nzPlaceHolder="Chọn danh mục"
+                        class="w-full rounded-md" nzShowSearch nzDropdownClassName="filter-dropdown-select">
+                        <nz-option *ngFor="let cat of categoryList" [nzValue]="cat.id" [nzLabel]="cat.name"></nz-option>
+                    </nz-select>
+                </nz-form-control>
+            </nz-form-item>
+
+            <!-- Grid layout cho giá -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <!-- Giá -->
+                <nz-form-item>
+                    <nz-form-label nzRequired class="font-semibold">Giá (VNĐ)</nz-form-label>
+                    <nz-form-control nzErrorTip="Vui lòng nhập giá sản phẩm">
+                        <nz-input-number formControlName="price" [nzMin]="0" [nzStep]="1000"
+                            [nzFormatter]="formatterVND" [nzParser]="parserVND" placeholder="0"
+                            class="w-full rounded-md"></nz-input-number>
+                    </nz-form-control>
+                </nz-form-item>
+
+                <!-- Giá giảm -->
+                <nz-form-item>
+                    <nz-form-label class="font-semibold">Giá giảm (VNĐ)</nz-form-label>
+                    <nz-form-control>
+                        <nz-input-number formControlName="discountPrice" [nzMin]="0" [nzStep]="1000"
+                            [nzFormatter]="formatterVND" [nzParser]="parserVND" placeholder="0"
+                            class="w-full rounded-md"></nz-input-number>
+                    </nz-form-control>
+                </nz-form-item>
+
+                <!-- Tỉ lệ giảm -->
+                <nz-form-item>
+                    <nz-form-label class="font-semibold">Tỉ lệ giảm (%)</nz-form-label>
+                    <nz-form-control>
+                        <nz-input-number formControlName="discount" [nzMin]="0" [nzMax]="100" [nzStep]="1"
+                            placeholder="0" class="w-full rounded-md"></nz-input-number>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <!-- Tồn kho -->
+            <nz-form-item>
+                <nz-form-label nzRequired class="font-semibold">Tồn kho</nz-form-label>
+                <nz-form-control nzErrorTip="Vui lòng nhập số lượng tồn kho">
+                    <nz-input-number formControlName="stock" [nzMin]="0" [nzStep]="1" placeholder="0"
+                        class="w-full rounded-md"></nz-input-number>
+                </nz-form-control>
+            </nz-form-item>
+
+            <!-- Ảnh -->
+            <nz-form-item>
+                <nz-form-label class="font-semibold">Ảnh sản phẩm</nz-form-label>
+                <nz-form-control>
+                    <input nz-input formControlName="imageName" placeholder="URL hoặc tên file ảnh"
+                        class="rounded-md hover:border-blue-400 focus:border-blue-500 transition-colors" />
+                    <div class="text-xs text-gray-500 mt-1">Nhập URL ảnh hoặc tên file</div>
+                </nz-form-control>
+            </nz-form-item>
+
+            <!-- Trạng thái hoạt động -->
+            <nz-form-item class="mb-0">
+                <nz-form-control>
+                    <label nz-checkbox formControlName="isActive" class="font-medium">
+                        <span class="ml-2">Còn kinh doanh</span>
+                    </label>
+                </nz-form-control>
+            </nz-form-item>
+        </form>
+    </div>
+
+    <!-- Footer buttons cố định -->
+    <div class="p-6 pt-4 border-t border-gray-200 bg-white flex-shrink-0">
+        <div class="flex justify-end gap-3">
+            <button nz-button nzType="default" type="button" (click)="cancel()"
+                class="min-w-[100px] hover:border-gray-400 transition-all">
+                <i nz-icon nzType="close" nzTheme="outline"></i>
+                Huỷ
+            </button>
+            <button nz-button nzType="primary" (click)="submitForm()" [nzLoading]="false"
+                class="min-w-[100px] shadow-sm hover:shadow-md transition-all">
+                <i nz-icon nzType="save" nzTheme="outline"></i>
+                Lưu
+            </button>
+        </div>
+    </div>
+</div>

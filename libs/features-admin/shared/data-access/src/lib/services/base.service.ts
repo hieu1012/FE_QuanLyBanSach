@@ -51,12 +51,10 @@ export class BaseHttpService {
         const url = this.url(path);
         let headers = new HttpHeaders().set('Read', 'true');
         if (isCache) headers = headers.set('cache-response', 'true');
-
-        return this.http.get<ResponseData<T>>(url, {
+        return this.http.get<T>(url, {
             headers,
             params: createRequestOption(params),
-            // Angular tự động thêm observe: 'body' + responseType: 'json' → an toàn 100%
-        }).pipe(map(res => res.result));
+        });
     }
 
     // POST - siêu gọn
