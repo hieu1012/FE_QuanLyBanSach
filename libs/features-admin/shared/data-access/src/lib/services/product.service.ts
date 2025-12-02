@@ -40,4 +40,12 @@ export class ProductService extends BaseHttpService {
         return this.post<any>('products', product);
     }
 
+    updateProduct(id: number, product: any): Observable<any> {
+        return this.put<any>(`products/${id}`, product);
+    }
+
+    deleteProduct(id: number): Observable<any> {
+        return this.delete<any>(`products/${id}`);
+    }
+
 }

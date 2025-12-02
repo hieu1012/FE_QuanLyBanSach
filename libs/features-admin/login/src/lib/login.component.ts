@@ -18,12 +18,12 @@ export class LoginComponent implements OnInit {
   password = '1111';
   error = '';
 
-  
+
 
   onSubmit() {
     this.authService.login(this.username, this.password).subscribe({
       next: (res) => {
-        alert('Đăng nhập thành công!');
+        // alert('Đăng nhập thành công!');
         window.location.href = '/dashboard';
       },
       error: (err) => {

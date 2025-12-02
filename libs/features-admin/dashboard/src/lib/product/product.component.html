@@ -145,9 +145,6 @@
       <td nzAlign="right">
         <div class="space-y-0.5">
           <p class="font-semibold text-gray-900">{{ product.price | number:'1.0-0' }}đ</p>
-          <p class="text-xs text-gray-400 line-through" *ngIf="product.discount > 0">
-            {{ product.price | number:'1.0-0' }}đ
-          </p>
         </div>
       </td>
       <td nzAlign="right">

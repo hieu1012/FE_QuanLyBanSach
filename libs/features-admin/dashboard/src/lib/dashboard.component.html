@@ -26,22 +26,27 @@
                 <span>Tổng quan</span>
             </li>
 
+          <li nz-menu-item routerLink="products" routerLinkActive="ant-menu-item-selected">
+            <i nz-icon nzType="shopping-cart"></i>
+            <span>Sản phẩm</span>
+          </li>
+
+          <li nz-menu-item routerLink="categories" routerLinkActive="ant-menu-item-selected">
+            <i nz-icon nzType="shopping-cart"></i>
+            <span>Loại sản phẩm</span>
+          </li>
+
+          <li nz-menu-item routerLink="orders" routerLinkActive="ant-menu-item-selected">
+            <i nz-icon nzType="unordered-list"></i>
+            <span>Đơn hàng</span>
+          </li>
+
             <li nz-menu-item routerLink="users" routerLinkActive="ant-menu-item-selected">
                 <i nz-icon nzType="user"></i>
                 <span>Người dùng</span>
             </li>
 
-            <li nz-menu-item routerLink="products" routerLinkActive="ant-menu-item-selected">
-                <i nz-icon nzType="shopping-cart"></i>
-                <span>Sản phẩm</span>
-            </li>
-
-            <li nz-menu-item routerLink="orders" routerLinkActive="ant-menu-item-selected">
-                <i nz-icon nzType="unordered-list"></i>
-                <span>Đơn hàng</span>
-            </li>
-
-            <li nz-menu-item style="position: absolute; bottom: 16px; width: 100%;">
+            <li (click)="logout()" nz-menu-item style="position: absolute; bottom: 16px; width: 100%;">
                 <i nz-icon nzType="logout"></i>
                 <span>Đăng xuất</span>
             </li>
@@ -72,11 +77,8 @@
 
             <!-- Avatar + Notification -->
             <div style="display: flex; align-items: center; gap: 16px;">
-                <nz-badge [nzCount]="5">
-                    <i nz-icon nzType="bell" style="font-size: 20px;"></i>
-                </nz-badge>
                 <nz-avatar nzSrc="https://i.pravatar.cc/150?img=12"></nz-avatar>
-                <span style="font-weight: 500;">Admin Pro</span>
+                <span style="font-weight: 500;">{{userName}}</span>
             </div>
         </nz-header>
 

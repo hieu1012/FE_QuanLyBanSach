@@ -4,18 +4,19 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { NzTableQueryParams, NzTableSortOrder, NzTableSortFn } from 'ng-zorro-antd/table';
 import { FormProductComponent } from './form-product/form-product.component'; // Đường dẫn đúng
 import { NzModalService } from 'ng-zorro-antd/modal';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 @Component({
-  selector: 'emi-product',
+  selector   : 'emi-product',
   templateUrl: './product.component.html',
-  styleUrls: ['./product.component.scss'],
+  styleUrls  : ['./product.component.scss'],
 })
 export class ProductComponent implements OnInit {
   quickKeyword = '';
   filterForm: FormGroup;
   categoryList = [
-    { id: 1, name: 'Sách Văn Học' },
-    { id: 2, name: 'Sách Kỹ Thuật' },
+    {id: 1, name: 'Sách Văn Học'},
+    {id: 2, name: 'Sách Kỹ Thuật'},
     // ... Thêm danh mục thực tế
   ];
   listOfProduct: any[] = [];
@@ -28,20 +29,18 @@ export class ProductComponent implements OnInit {
   allChecked = false;
 
 
-  constructor(private fb: FormBuilder, private productService: ProductService, private modal: NzModalService) {
+  constructor(private fb: FormBuilder, private productService: ProductService, private modal: NzModalService, private notification: NzNotificationService) {
     this.filterForm = this.fb.group({
       categoryId: [null],
-      minPrice: [null],
-      maxPrice: [null],
-      minStock: [null]
+      minPrice  : [null],
+      maxPrice  : [null],
+      minStock  : [null]
     });
   }
 
   ngOnInit(): void {
     this.loadProducts();
   }
-
-  isFilterModalVisible = false;
 
   // Xử lý nút tìm kiếm nhanh
   onQuickSearch(): void {
@@ -94,7 +93,7 @@ export class ProductComponent implements OnInit {
         formVal.minStock
       )
       .subscribe({
-        next: (res) => {
+        next : (res) => {
           this.loading = false;
           this.total = res.totalElements;
           this.listOfProduct = res.content;
@@ -117,33 +116,56 @@ export class ProductComponent implements OnInit {
 
   onAddNew(product?: any) {
     const modal = this.modal.create({
-      nzContent: FormProductComponent,
-      nzComponentParams: { categoryList: this.categoryList },
-      nzWidth: 700,
-      nzTitle: 'Thêm sản phẩm mới',
-      nzFooter: null,
-      nzCentered: true
+      nzContent        : FormProductComponent,
+      nzComponentParams: {
+        categoryList: this.categoryList,
+        product: product  // ← Thêm dòng này
+      },
+      nzWidth          : 700,
+      nzTitle          : product ? 'Cập nhật sản phẩm' : 'Thêm sản phẩm mới', // ← Đổi title
+      nzFooter         : null,
+      nzCentered       : true
     });
 
-
     modal.afterClose.subscribe((productData) => {
-      console.log('Dữ liệu sản phẩm nhận được từ modal:', productData);
-      // if (productData) {
-      //   this.productService.addProduct(productData).subscribe({
-      //     next: (res) => {
-      //       console.log('Thêm sản phẩm thành công', res);
-      //       this.loadProducts();
-      //     },
-      //     error: (err) => {
-      //       // Báo lỗi nếu cần
-      //     }
-      //   });
-      // }
+      if (productData) {
+        if(product) {
+          // Cập nhật sản phẩm
+          this.productService.updateProduct(product.id, productData).subscribe({
+            next : (res) => {
+              this.notification.success('Cập nhật sản phẩm', 'Cập nhật sản phẩm thành công!');
+              this.loadProducts();
+            },
+            error: (err) => {
+              this.notification.error('Lỗi', err.error?.message);
+            }
+          });
+        } else {
+          // Thêm mới sản phẩm
+          this.productService.addProduct(productData).subscribe({
+            next: (res) => {
+              this.notification.success('Thêm sản phẩm', 'Thêm sản phẩm thành công!');
+              this.loadProducts();
+            },
+            error: (err) => {
+              this.notification.error('Lỗi', err.error?.message);
+            }
+          });
+        }
+      }
     });
   }
 
   onDeleteProduct(productId: number) {
-    // Xử lý xóa sản phẩm
-    console.log('Xóa sản phẩm với ID:', productId);
+    this.productService.deleteProduct(productId).subscribe({
+        next : (res) => {
+          this.notification.success('Xóa sản phẩm', 'Xóa sản phẩm thành công!');
+          this.loadProducts();
+        },
+        error: (err) => {
+          this.notification.error('Lỗi', err.error?.message);
+        }
+      }
+    );
   }
 }

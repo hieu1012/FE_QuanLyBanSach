@@ -27,6 +27,7 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
+import { NzNotificationModule } from 'ng-zorro-antd/notification';
 
 // Kendo UI
 import { GridModule } from '@progress/kendo-angular-grid';
@@ -41,7 +42,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // Import array icon đã export riêng
 import { antDesignIcons } from './ant-design-icons';
 import { FormProductComponent } from './product/form-product/form-product.component';
-import { FormUserComponent } from './user/form-user/form-user.component'; // điều chỉnh lại path đúng nếu để thư mục khác
+import { FormUserComponent } from './user/form-user/form-user.component';
+import { CategoryComponent } from './category/category.component';
+import { FormCategoryComponent } from './category/form-category/form-category.component'; // điều chỉnh lại path đúng nếu để thư mục khác
 
 @NgModule({
   imports: [
@@ -62,6 +65,11 @@ import { FormUserComponent } from './user/form-user/form-user.component'; // đi
             path: 'products',
             component: ProductComponent,
             data: { title: 'Sản phẩm' },
+          },
+          {
+            path: 'categories',
+            component: CategoryComponent,
+            data: { title: 'Loại sản phẩm' },
           },
           {
             path: 'orders',
@@ -92,6 +100,7 @@ import { FormUserComponent } from './user/form-user/form-user.component'; // đi
     NzModalModule,
     NzCheckboxModule,
     NzInputNumberModule,
+    NzNotificationModule,
     // Kendo modules
     GridModule,
     ButtonsModule,
@@ -106,7 +115,9 @@ import { FormUserComponent } from './user/form-user/form-user.component'; // đi
     OrderComponent,
     FormProductComponent,
     FormUserComponent,
+    CategoryComponent,
+    FormCategoryComponent,
   ],
   providers: [{ provide: NZ_ICONS, useValue: antDesignIcons }],
 })
-export class FeaturesAdminDashboardModule { }
+export class FeaturesAdminDashboardModule {}
