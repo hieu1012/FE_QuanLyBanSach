@@ -1,1 +1,24 @@
-<p>form-category works!</p>
+<div class="flex flex-col h-full max-h-[60vh]">
+  <div class="flex-1 overflow-y-auto p-6">
+    <form [formGroup]="categoryForm" (ngSubmit)="submitForm()" nz-form nzLayout="vertical">
+      <nz-form-item>
+        <nz-form-label nzRequired>Tên danh mục</nz-form-label>
+        <nz-form-control nzErrorTip="Vui lòng nhập tên danh mục">
+          <input nz-input formControlName="name" placeholder="Nhập tên danh mục" />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label>Mô tả</nz-form-label>
+        <nz-form-control>
+          <textarea nz-input formControlName="description" nzAutosize placeholder="Nhập mô tả"></textarea>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </div>
+  <div class="px-6 py-4 border-t bg-white">
+    <div class="flex justify-end gap-3">
+      <button nz-button nzType="default" (click)="cancel()">Huỷ</button>
+      <button nz-button nzType="primary" (click)="submitForm()" [disabled]="categoryForm.invalid">Lưu</button>
+    </div>
+  </div>
+</div>

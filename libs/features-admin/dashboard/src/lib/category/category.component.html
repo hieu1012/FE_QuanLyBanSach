@@ -1,1 +1,67 @@
-<p>category works!</p>
+<!-- Search Bar & Filters -->
+<div class="flex items-center gap-3 mb-4 p-4 bg-gray-50 rounded-lg">
+  <input nz-input [(ngModel)]="quickKeyword" placeholder="Nhập tên danh mục..." class="w-64"
+    (keyup.enter)="onQuickSearch()" />
+  <button nz-button nzType="primary" (click)="onQuickSearch()" class="flex items-center gap-2">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    Tìm kiếm
+  </button>
+  
+  <button nz-button nzType="primary" (click)="onAddOrEditCategory()" class="ml-auto flex items-center gap-2">
+    <i class="fa-solid fa-plus"></i>
+    Thêm mới
+  </button>
+</div>
+
+<!-- Category Table -->
+<nz-table #table [nzData]="listOfCategory" [nzTotal]="total" [nzLoading]="loading"
+  [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" [nzFrontPagination]="false"
+  [nzPageSizeOptions]="[10, 20, 30, 50]" [nzShowSizeChanger]="true"
+  (nzQueryParams)="onQueryParamsChange($event)" [nzScroll]="{ y: '425px' }"
+  class="product-table">
+  <thead>
+    <tr>
+      <th nzWidth="45px" nzAlign="center">
+        <label nz-checkbox [(ngModel)]="allChecked" (ngModelChange)="checkAll($event)"></label>
+      </th>
+      <th nzWidth="60px" nzAlign="center">STT</th>
+      <th nzWidth="100px" nzAlign="center">Thao tác</th>
+      <th nzColumnKey="name" [nzSortFn]="true" nzWidth="320px">Tên danh mục</th>
+      <th nzColumnKey="description" nzWidth="400px">Mô tả</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let cat of table.data; let i = index">
+      <td nzAlign="center">
+        <label nz-checkbox [(ngModel)]="cat.checked" (ngModelChange)="updateAllChecked()"></label>
+      </td>
+      <td nzAlign="center">
+        <span class="text-gray-500 font-medium">{{ i + 1 + (pageIndex - 1) * pageSize }}</span>
+      </td>
+      <td nzAlign="center">
+        <button class="border-gray-200 rounded hover:bg-gray-100 hover:border-blue-300"
+                nz-button nz-dropdown [nzDropdownMenu]="catMenus" nzPlacement="bottomCenter" nzSize="small">
+          <i class="fas fa-ellipsis-v"></i>
+        </button>
+        <nz-dropdown-menu #catMenus="nzDropdownMenu">
+          <ul nz-menu>
+            <li nz-menu-item (click)="onAddOrEditCategory(cat)">
+              <i class="fa-solid fa-pen-to-square mr-2"></i>
+              Chỉnh sửa
+            </li>
+            <li nz-menu-item (click)="onDeleteCategory(cat.id)">
+              <i class="fa-solid fa-trash mr-2" style="color:#ff4d4f"></i>
+              Xoá
+            </li>
+          </ul>
+        </nz-dropdown-menu>
+      </td>
+      <td>
+        <p class="font-medium text-gray-900 truncate" [title]="cat.name">{{ cat.name }}</p>
+      </td>
+      <td>
+        <span class="truncate" [title]="cat.description">{{ cat.description || '-' }}</span>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>

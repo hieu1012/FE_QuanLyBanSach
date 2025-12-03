@@ -8,6 +8,10 @@ import { Observable } from 'rxjs';
 })
 export class CategoryService extends BaseHttpService {
 
+  getAllCategories(): Observable<any[]> {
+    return this.get<any[]>('categories');
+  }
+
   getCategoriesHasPage(
     page: number = 0,
     size: number = 20,

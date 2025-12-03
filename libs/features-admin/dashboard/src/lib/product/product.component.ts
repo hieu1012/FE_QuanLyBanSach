@@ -1,24 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService, ProductService } from '@emi/features-admin/shared/data-access';
+import { AuthService, ProductService, CategoryService } from '@emi/features-admin/shared/data-access';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { NzTableQueryParams, NzTableSortOrder, NzTableSortFn } from 'ng-zorro-antd/table';
 import { FormProductComponent } from './form-product/form-product.component'; // Đường dẫn đúng
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { map, tap } from 'rxjs';
 
 @Component({
-  selector   : 'emi-product',
+  selector: 'emi-product',
   templateUrl: './product.component.html',
-  styleUrls  : ['./product.component.scss'],
+  styleUrls: ['./product.component.scss'],
 })
 export class ProductComponent implements OnInit {
   quickKeyword = '';
   filterForm: FormGroup;
-  categoryList = [
-    {id: 1, name: 'Sách Văn Học'},
-    {id: 2, name: 'Sách Kỹ Thuật'},
-    // ... Thêm danh mục thực tế
-  ];
+  categoryList: any[] = [];
   listOfProduct: any[] = [];
   total = 0;
   loading = false;
@@ -28,17 +25,42 @@ export class ProductComponent implements OnInit {
   sortOrder: string | null = null;
   allChecked = false;
 
+  $categories = this.categoryService.getAllCategories().pipe(
+    tap(categories => {
+      console.log('Fetched categories:', categories);
+    }),
+    // map(categories => {
+    //   id: categories?.id;
+    //   name: categories?.name;
+    // })
+  );
 
-  constructor(private fb: FormBuilder, private productService: ProductService, private modal: NzModalService, private notification: NzNotificationService) {
+
+  constructor(private fb: FormBuilder, private categoryService: CategoryService, private productService: ProductService, private modal: NzModalService, private notification: NzNotificationService) {
     this.filterForm = this.fb.group({
       categoryId: [null],
-      minPrice  : [null],
-      maxPrice  : [null],
-      minStock  : [null]
+      minPrice: [null],
+      maxPrice: [null],
+      minStock: [null]
     });
   }
 
   ngOnInit(): void {
+    this.categoryService.getAllCategories().pipe(
+      map((res: any) => {
+        return res.data.map((item: any) => ({
+          id: item.id,
+          name: item.name
+        }));
+      })
+    ).subscribe({
+      next: (res) => {
+        this.categoryList = res;
+      },
+      error: (err) => {
+        alert(err.error?.message);
+      }
+    });
     this.loadProducts();
   }
 
@@ -93,7 +115,7 @@ export class ProductComponent implements OnInit {
         formVal.minStock
       )
       .subscribe({
-        next : (res) => {
+        next: (res) => {
           this.loading = false;
           this.total = res.totalElements;
           this.listOfProduct = res.content;
@@ -116,23 +138,23 @@ export class ProductComponent implements OnInit {
 
   onAddNew(product?: any) {
     const modal = this.modal.create({
-      nzContent        : FormProductComponent,
+      nzContent: FormProductComponent,
       nzComponentParams: {
         categoryList: this.categoryList,
         product: product  // ← Thêm dòng này
       },
-      nzWidth          : 700,
-      nzTitle          : product ? 'Cập nhật sản phẩm' : 'Thêm sản phẩm mới', // ← Đổi title
-      nzFooter         : null,
-      nzCentered       : true
+      nzWidth: 700,
+      nzTitle: product ? 'Cập nhật sản phẩm' : 'Thêm sản phẩm mới', // ← Đổi title
+      nzFooter: null,
+      nzCentered: true
     });
 
     modal.afterClose.subscribe((productData) => {
       if (productData) {
-        if(product) {
+        if (product) {
           // Cập nhật sản phẩm
           this.productService.updateProduct(product.id, productData).subscribe({
-            next : (res) => {
+            next: (res) => {
               this.notification.success('Cập nhật sản phẩm', 'Cập nhật sản phẩm thành công!');
               this.loadProducts();
             },
@@ -158,14 +180,14 @@ export class ProductComponent implements OnInit {
 
   onDeleteProduct(productId: number) {
     this.productService.deleteProduct(productId).subscribe({
-        next : (res) => {
-          this.notification.success('Xóa sản phẩm', 'Xóa sản phẩm thành công!');
-          this.loadProducts();
-        },
-        error: (err) => {
-          this.notification.error('Lỗi', err.error?.message);
-        }
+      next: (res) => {
+        this.notification.success('Xóa sản phẩm', 'Xóa sản phẩm thành công!');
+        this.loadProducts();
+      },
+      error: (err) => {
+        this.notification.error('Lỗi', err.error?.message);
       }
+    }
     );
   }
 }

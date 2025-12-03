@@ -1,0 +1,10 @@
+/* Đảm bảo modal body scroll đẹp, không ảnh hưởng table/paginator */
+:host ::ng-deep .ant-modal-body {
+  max-height: 75vh;
+  overflow-y: auto;
+  padding: 0;
+}
+/* Đảm bảo table pagination không bị float hoặc vỡ khi có modal */
+.product-table .ant-table-pagination {
+  position: static !important;
+}

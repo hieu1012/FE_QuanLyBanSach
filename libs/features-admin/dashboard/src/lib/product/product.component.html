@@ -24,7 +24,7 @@
         <!-- Category Filter -->
         <div class="mb-4">
           <label class="block text-sm font-medium text-gray-700 mb-1">Danh mục</label>
-          <nz-select formControlName="categoryId" nzAllowClear nzPlaceHolder="Chọn danh mục" class="w-full"
+          <nz-select formControlName="categoryId" nzAllowClear nzPlaceHolder="Chọn danh mục" class="w-full" nzShowSearch
             nzDropdownClassName="filter-dropdown-select">
             <nz-option *ngFor="let cat of categoryList" [nzValue]="cat.id" [nzLabel]="cat.name"></nz-option>
           </nz-select>
