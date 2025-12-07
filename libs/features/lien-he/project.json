@@ -1,0 +1,26 @@
+{
+  "projectType": "library",
+  "root": "libs/features/lien-he",
+  "sourceRoot": "libs/features/lien-he/src",
+  "prefix": "emi",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/features/lien-he"],
+      "options": {
+        "jestConfig": "libs/features/lien-he/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/features/lien-he/src/**/*.ts",
+          "libs/features/lien-he/src/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

@@ -1,0 +1,26 @@
+{
+  "projectType": "library",
+  "root": "libs/features/gioi-thieu",
+  "sourceRoot": "libs/features/gioi-thieu/src",
+  "prefix": "emi",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/features/gioi-thieu"],
+      "options": {
+        "jestConfig": "libs/features/gioi-thieu/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/features/gioi-thieu/src/**/*.ts",
+          "libs/features/gioi-thieu/src/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

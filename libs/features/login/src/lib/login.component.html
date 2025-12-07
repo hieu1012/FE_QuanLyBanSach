@@ -1,0 +1,97 @@
+<div
+  class="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-blue-900 to-cyan-800 relative overflow-hidden">
+  <!-- Background đẹp + tối vừa đủ để chữ trắng nổi bần bật -->
+  <div class="absolute inset-0">
+    <img src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=1920&q=80"
+         alt="Library" class="w-full h-full object-cover opacity-40">
+    <!-- Overlay đậm hơn để chữ trắng luôn nổi -->
+    <div class="absolute inset-0 bg-gradient-to-br from-black/70 via-blue-900/80 to-cyan-900/70"></div>
+  </div>
+
+  <!-- Card chính -->
+  <div class="relative z-10 w-full grid lg:grid-cols-2 overflow-hidden">
+
+    <!-- ==================== BÊN TRÁI: WELCOME – CHỮ TRẮNG SIÊU NỔI ==================== -->
+    <div class="hidden lg:flex flex-col justify-between p-16 text-white  pl-40 pr-0">
+      <div>
+        <!-- Logo -->
+        <a routerLink="/" class="inline-flex items-center space-x-4 mb-16">
+          <div
+            class="w-20 h-20 bg-gradient-to-br from-cyan-400 to-blue-600 rounded-2xl shadow-2xl flex items-center justify-center backdrop-blur">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 text-white" fill="none" viewBox="0 0 24 24"
+                 stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                    d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+            </svg>
+          </div>
+          <span class="text-4xl font-black tracking-tight">BookStore</span>
+        </a>
+
+        <!-- Tiêu đề chính – trắng tinh, đậm, nổi bật -->
+        <h1 class="text-7xl font-black leading-tight text-white drop-shadow-2xl">
+          Chào mừng trở lại!
+        </h1>
+        <p class="text-5xl font-bold mt-6 text-cyan-300 drop-shadow-xl">
+          Bạn đã sẵn sàng<br>đọc chưa?
+        </p>
+        <p class="text-2xl mt-10 leading-relaxed text-white/95 drop-shadow-lg">
+          Hàng ngàn cuốn sách hay đang chờ bạn khám phá.<br>
+          Giao hàng nhanh 2h • Miễn phí ship từ 299k
+        </p>
+      </div>
+    </div>
+
+    <!-- ==================== BÊN PHẢI: FORM ĐĂNG NHẬP ==================== -->
+    <div  class="flex items-center justify-center py-20 pl-20 bg-white !pr-40">
+      <div class="w-full">
+        <div class="text-center lg:text-left mb-12">
+          <h2 class="text-5xl font-black text-gray-800">Đăng nhập</h2>
+          <p class="text-lg text-gray-600 mt-3">Nhập thông tin để tiếp tục mua sắm</p>
+        </div>
+
+        <form class="space-y-7" (ngSubmit)="onSubmit()">
+          <input [(ngModel)]="username" name="username" type="text" placeholder="Email hoặc số điện thoại" required
+                 class="w-full px-6 py-5 rounded-2xl border border-gray-200 focus:border-cyan-500 focus:ring-4 focus:ring-cyan-100 text-lg transition">
+
+          <input    [(ngModel)]="password" name="password" type="password" placeholder="Mật khẩu" required
+                 class="w-full px-6 py-5 rounded-2xl border border-gray-200 focus:border-cyan-500 focus:ring-4 focus:ring-cyan-100 text-lg transition">
+
+          <div class="flex">
+            <label class="flex items-center gap-3 cursor-pointer">
+              <input type="checkbox" class="w-5 h-5 text-cyan-600 rounded focus:ring-cyan-500">
+              <span class="text-gray-700 font-medium">Ghi nhớ đăng nhập</span>
+            </label>
+          </div>
+
+          <button type="submit"
+                  [disabled]="loading"
+                  class="w-full bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 text-white font-bold text-xl py-6 rounded-2xl shadow-2xl transform hover:scale-105 transition-all duration-300">
+            <span *ngIf="!loading">Đăng nhập ngay</span>
+            <span *ngIf="loading">Đang đăng nhập...</span>
+          </button>
+        </form>
+
+        <!-- Đăng nhập MXH -->
+        <div class="mt-10 text-center">
+          <p class="text-gray-600 mb-5">Hoặc đăng nhập bằng</p>
+          <div class="flex justify-center gap-6">
+            <button class="p-4 bg-gray-50 rounded-2xl hover:bg-gray-100 transition shadow-md">
+              <img src="https://www.google.com/favicon.ico" alt="Google" class="w-8 h-8">
+            </button>
+            <button class="p-4 bg-gray-50 rounded-2xl hover:bg-gray-100 transition shadow-md">
+              <i class="fab fa-facebook text-3xl text-blue-600"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Link đăng ký -->
+        <p class="text-center mt-12 text-gray-700 text-lg">
+          Chưa có tài khoản?
+          <a routerLink="/dang-ky" class="font-bold text-cyan-600 text-xl hover:underline">
+            Đăng ký miễn phí
+          </a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

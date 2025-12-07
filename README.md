@@ -16,6 +16,8 @@
 
 -   Tạo lib mới
 nx g @nrwl/angular:library shell --directory=features-admin/shared
+- nx g @nrwl/angular:library chi-tiet-san-pham --directory=features
+
 
 -   Xóa lib
     `nx g remove <lib-name>`

@@ -1,0 +1,26 @@
+{
+  "projectType": "library",
+  "root": "libs/features/danh-muc",
+  "sourceRoot": "libs/features/danh-muc/src",
+  "prefix": "emi",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/features/danh-muc"],
+      "options": {
+        "jestConfig": "libs/features/danh-muc/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/features/danh-muc/src/**/*.ts",
+          "libs/features/danh-muc/src/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

@@ -9,11 +9,16 @@
     "features-admin-login": "libs/features-admin/login",
     "features-admin-shared-data-access": "libs/features-admin/shared/data-access",
     "features-admin-shared-shell": "libs/features-admin/shared/shell",
+    "features-danh-muc": "libs/features/danh-muc",
     "features-footer": "libs/features/footer",
+    "features-gioi-thieu": "libs/features/gioi-thieu",
     "features-header": "libs/features/header",
     "features-home": "libs/features/home",
-    "features-lookup": "libs/features/lookup",
+    "features-khuyen-mai": "libs/features/khuyen-mai",
+    "features-lien-he": "libs/features/lien-he",
+    "features-login": "libs/features/login",
     "features-register": "libs/features/register",
+    "features-shared-service": "libs/features/shared/service",
     "features-shell": "libs/features/shell",
     "shared-ui": "libs/shared/ui"
   }

@@ -9,9 +9,12 @@ import { homeRoutes } from './home.routes';
 import { SharedUiModule } from '@emi/shared/ui';
 
 import { SwiperModule } from 'swiper/angular';
+
+
 @NgModule({
-  imports: [CommonModule, RouterModule.forChild(homeRoutes), SharedUiModule, SwiperModule],
+  imports     : [CommonModule, RouterModule.forChild(homeRoutes), SharedUiModule, SwiperModule],
   declarations: [HomeComponent],
-  exports: [HomeComponent],
+  exports     : [HomeComponent],
 })
-export class HomeModule { }
+export class HomeModule {
+}

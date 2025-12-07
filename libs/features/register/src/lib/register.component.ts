@@ -1,58 +1,45 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
+import { AuthService, RegisterRequest } from '@emi/features/shared/service';
+import { Router } from '@angular/router';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 @Component({
-  selector: 'emi-register',
+  selector   : 'emi-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss'],
+  styleUrls  : ['./register.component.scss'],
 })
 export class RegisterComponent implements OnInit {
-
-
   registrationForm: FormGroup;
+  loading = false;
+  errorMsg = '';
+  successMsg = '';
+  isSuccessModalVisible = false;
 
-  genders = [
-    { value: 'male', label: 'Nam' },
-    { value: 'female', label: 'Nữ' },
-    { value: 'other', label: 'Khác' }
-  ];
-
-  countries = [
-    { value: 'vn', label: 'Việt Nam' },
-    { value: 'us', label: 'Hoa Kỳ' },
-    { value: 'jp', label: 'Nhật Bản' }
-  ];
-
-  languages = [
-    { value: 'vi', label: 'Tiếng Việt' },
-    { value: 'en', label: 'English' },
-    { value: 'jp', label: '日本語' }
-  ];
-
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private registerService: AuthService,
+    private router: Router,
+    private notification: NzNotificationService
+  ) {
     this.registrationForm = this.fb.group({
-      firstName: ['', [Validators.required]],
-      lastName: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]],
-      phoneNumber: ['', [Validators.required]],
-      gender: ['', [Validators.required]],
-      nationality: ['', [Validators.required]],
-      language: ['', [Validators.required]],
-      birthDate: ['', [Validators.required]],
-      address: ['', [Validators.required]],
-      postalCode: ['', [Validators.required]]
-    });
+      username       : ['', Validators.required],
+      email          : ['', [Validators.required, Validators.email]],
+      password       : ['', [Validators.required, Validators.minLength(6)]],
+      confirmPassword: ['', Validators.required],
+      fullName       : ['', Validators.required],
+      phoneNumber    : [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(/^(0|\+84)[1-9][0-9]{8,9}$/) // Bạn có thể sửa regex cho đúng kiểu mong muốn
+        ]
+      ],
+      address        : ['', Validators.required],
+    }, {validators: this.passwordMatchValidator});
   }
 
-  ngOnInit(): void { }
-
-
-
-  private markFormGroupTouched(): void {
-    Object.keys(this.registrationForm.controls).forEach(key => {
-      const control = this.registrationForm.get(key);
-      control?.markAsTouched();
-    });
+  ngOnInit(): void {
   }
 
   isFieldInvalid(fieldName: string): boolean {
@@ -60,27 +47,55 @@ export class RegisterComponent implements OnInit {
     return !!(field && field.invalid && (field.dirty || field.touched));
   }
 
-  // xử lý phần model
-  isSuccessModalVisible = true;
-  countdown = '00:50';
+  passwordMatchValidator(form: AbstractControl) {
+    const pass = form.get('password')?.value;
+    const confirm = form.get('confirmPassword')?.value;
+    if (pass !== confirm) {
+      form.get('confirmPassword')?.setErrors({notMatch: true});
+    } else {
+      if (form.get('confirmPassword')?.errors?.['notMatch']) {
+        form.get('confirmPassword')?.setErrors(null);
+      }
+    }
+    return null;
+  }
 
-  // ... other properties ...
-
+  markFormGroupTouched(): void {
+    Object.values(this.registrationForm.controls).forEach(control => {
+      control?.markAsTouched();
+    });
+  }
 
   closeModal(): void {
-    console.log('Closing modal'); // Debug log
     this.isSuccessModalVisible = false;
   }
 
   onSubmit(): void {
-    console.log('Form submitted'); // Debug log
-    if (this.registrationForm.valid) {
-      this.isSuccessModalVisible = true;
-      console.log('Modal should show:', this.isSuccessModalVisible); // Debug log
-    } else {
+    this.errorMsg = '';
+    this.successMsg = '';
+    if (this.registrationForm.invalid) {
       this.markFormGroupTouched();
+      return;
     }
+    this.loading = true;
+    const data: RegisterRequest = this.registrationForm.value;
+    this.registerService.register(data).subscribe({
+      next : (res: any) => {
+        this.loading = false;
+        this.successMsg = res.message || 'Đăng ký thành công!';
+        this.isSuccessModalVisible = true;
+        this.notification.success('Đăng ký', this.successMsg);
+        setTimeout(() => {
+          this.closeModal();
+          this.router.navigate(['/dang-nhap']);
+        }, 2000);
+
+      },
+      error: (err: any) => {
+        this.loading = false;
+        this.errorMsg = err?.error?.message || 'Đăng ký thất bại, vui lòng thử lại!';
+        this.notification.error('Đăng ký', this.errorMsg);
+      }
+    });
   }
-
-
 }

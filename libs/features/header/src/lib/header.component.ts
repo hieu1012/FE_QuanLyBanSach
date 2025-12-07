@@ -1,57 +1,75 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+// import { Component, OnInit, HostListener, ChangeDetectionStrategy } from '@angular/core';
+// import { Router } from '@angular/router';
+// import { AuthService, AuthUser, AuthResponse, UserRole } from '@emi/features-admin/shared/data-access';
+//
+// @Component({
+//   selector       : 'emi-header',
+//   templateUrl    : './header.component.html',
+//   styleUrls      : ['./header.component.scss'],
+//   changeDetection: ChangeDetectionStrategy.OnPush,
+// })
+// export class HeaderComponent implements OnInit {
+//   @HostListener('window:scroll', [])
+//
+//   showScrollTopBtn = false;
+//
+//   isLoggedIn = false;
+//   currentUser: AuthUser | null = null;
+//
+//   constructor(private router: Router, private authService: AuthService) {
+//   }
+//
+//   ngOnInit(): void {
+//     this.isLoggedIn = this.authService.isLoggedIn();
+//     this.currentUser = this.authService.getCurrentUser();
+//   }
+//
+//   logout() {
+//     this.authService.logout();
+//   }
+//
+//   scrollToTop() {
+//     window.scrollTo({top: 0, behavior: 'smooth'});
+//   }
+//
+//   isActive(path: string): boolean {
+//     // Kiểm tra nếu router.url bắt đầu bằng path
+//     return this.router.url.startsWith(path);
+//   }
+// }
+
+
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService, AuthUser } from '@emi/features/shared/service';
+import { Observable } from 'rxjs';
+
 @Component({
   selector: 'emi-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HeaderComponent implements OnInit {
-  constructor(private router: Router) { }
-
-  ngOnInit(): void { }
-
-  hideTopbar = false;
+export class HeaderComponent {
   showScrollTopBtn = false;
 
-  @HostListener('window:scroll', [])
-  onWindowScroll() {
-    const scrollY = window.scrollY || document.documentElement.scrollTop;
-    this.hideTopbar = scrollY > 60;
-    this.showScrollTopBtn = scrollY > 250;
+  isLoggedIn$: Observable<boolean>;
+  currentUser$: Observable<AuthUser | null>;
 
+  constructor(private router: Router, public authService: AuthService) {
+    this.isLoggedIn$ = this.authService.loggedIn$;
+    this.currentUser$ = this.authService.user$;
+  }
+
+  logout() {
+    this.authService.logout();
   }
 
   scrollToTop() {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({top: 0, behavior: 'smooth'});
   }
 
   isActive(path: string): boolean {
-    // Kiểm tra nếu router.url bắt đầu bằng path
     return this.router.url.startsWith(path);
   }
-
-  // Mobile menu
-  showMobileMenu = false;
-  mobileDropdown = {
-    lookup: false,
-    register: false
-  };
-
-  openMobileMenu() {
-    this.showMobileMenu = true;
-    document.body.style.overflow = 'hidden';
-  }
-
-  closeMobileMenu() {
-    this.showMobileMenu = false;
-    document.body.style.overflow = '';
-    // Đóng tất cả dropdown mobile khi đóng menu
-    this.mobileDropdown = { lookup: false, register: false };
-  }
-
-  toggleMobileDropdown(key: 'lookup' | 'register') {
-    this.mobileDropdown[key] = !this.mobileDropdown[key];
-  }
-
-
 }

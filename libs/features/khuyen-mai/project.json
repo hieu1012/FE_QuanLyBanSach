@@ -1,0 +1,26 @@
+{
+  "projectType": "library",
+  "root": "libs/features/khuyen-mai",
+  "sourceRoot": "libs/features/khuyen-mai/src",
+  "prefix": "emi",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/features/khuyen-mai"],
+      "options": {
+        "jestConfig": "libs/features/khuyen-mai/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/features/khuyen-mai/src/**/*.ts",
+          "libs/features/khuyen-mai/src/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

@@ -4,6 +4,29 @@ import { Router } from '@angular/router';
 import { BaseHttpService } from './base.service'; // Corrected path
 import { Observable, tap, map } from 'rxjs';
 
+
+export enum UserRole {
+  MASTER = 'MASTER',
+  ADMIN = 'ADMIN',
+  USER = 'USER',
+}
+
+export interface AuthUser {
+  id: number;
+  username: string;
+  email: string;
+  fullName: string;
+  role: string;
+}
+
+export interface AuthResponse {
+  accessToken: string;
+  refreshToken: string;
+  tokenType: string;
+  user: AuthUser;
+}
+
+
 export interface LoginRequest {
     username: string;
     password: string;
@@ -14,7 +37,6 @@ export interface LoginResponse {
     refreshToken?: string;
     expiresIn?: number;
     user?: any;
-    // backend có thể trả thêm: fullName, roles, permissions...
 }
 
 @Injectable({

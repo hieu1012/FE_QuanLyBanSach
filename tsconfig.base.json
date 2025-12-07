@@ -37,12 +37,23 @@
       "@emi/features-admin/shared/shell": [
         "libs/features-admin/shared/shell/src/index.ts"
       ],
+      "@emi/features/chi-tiet-san-pham": [
+        "libs/features/chi-tiet-san-pham/src/index.ts"
+      ],
+      "@emi/features/danh-muc": ["libs/features/danh-muc/src/index.ts"],
       "@emi/features/dashboard": ["libs/features/dashboard/src/index.ts"],
       "@emi/features/footer": ["libs/features/footer/src/index.ts"],
+      "@emi/features/gioi-thieu": ["libs/features/gioi-thieu/src/index.ts"],
       "@emi/features/header": ["libs/features/header/src/index.ts"],
       "@emi/features/home": ["libs/features/home/src/index.ts"],
+      "@emi/features/khuyen-mai": ["libs/features/khuyen-mai/src/index.ts"],
+      "@emi/features/lien-he": ["libs/features/lien-he/src/index.ts"],
+      "@emi/features/login": ["libs/features/login/src/index.ts"],
       "@emi/features/lookup": ["libs/features/lookup/src/index.ts"],
       "@emi/features/register": ["libs/features/register/src/index.ts"],
+      "@emi/features/shared/service": [
+        "libs/features/shared/service/src/index.ts"
+      ],
       "@emi/features/shell": ["libs/features/shell/src/index.ts"],
       "@emi/shared/shell": ["libs/shared/shell/src/index.ts"],
       "@emi/shared/ui": ["libs/shared/ui/src/index.ts"]
