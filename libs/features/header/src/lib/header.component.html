@@ -231,12 +231,12 @@
       <div class="flex items-center space-x-3">
         <!-- User Account / Guest -->
         <ng-container *ngIf="isLoggedIn$ | async; else guestMenu">
-
+          <a routerLink="/gio-hang" class="relative p-2 hover:bg-gray-100 rounded-lg transition-colors">
+            <i class="fas fa-shopping-cart text-xl text-gray-700"></i>
+            <span class="absolute -top-1 -right-1 bg-gradient-to-br from-blue-600 to-cyan-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-medium">3</span>
+          </a>
           <div class="flex items-center space-x-3 relative group">
-            <a routerLink="/gio-hang" class="relative p-2 hover:bg-gray-100 rounded-lg transition-colors">
-              <i class="fas fa-shopping-cart text-xl text-gray-700"></i>
-              <span class="absolute -top-1 -right-1 bg-gradient-to-br from-blue-600 to-cyan-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-medium">3</span>
-            </a>
+
             <button class="flex items-center space-x-2 p-2 hover:bg-gray-100 rounded-lg transition-colors">
               <i class="fas fa-user text-xl text-gray-700"></i>
               <span *ngIf="(currentUser$ | async)?.fullName">

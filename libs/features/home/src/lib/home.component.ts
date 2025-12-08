@@ -1,29 +1,31 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SwiperOptions } from 'swiper/types';  // ← mới
+import { ProductService, } from '@emi/features/shared/service';
+
 @Component({
-  selector: 'emi-home',
+  selector   : 'emi-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss'],
+  styleUrls  : ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
 
   bannerConfig: SwiperOptions = {
-    loop: true,
-    autoplay: {
-      delay: 3000,
+    loop      : true,
+    autoplay  : {
+      delay               : 3000,
       disableOnInteraction: false,
     },
-    speed: 700,
+    speed     : 700,
     navigation: true,
-    pagination: { clickable: true },
+    pagination: {clickable: true},
     grabCursor: true,
   };
 
   // Banner slides
   itemBanner = [
-    { src: 'assets/shared/images/Banner2.jpg', alt: 'Banner 1' },
-    { src: 'assets/shared/images/Banner1.jpg', alt: 'Banner 1' },
+    {src: 'assets/shared/images/Banner2.jpg', alt: 'Banner 1'},
+    {src: 'assets/shared/images/Banner1.jpg', alt: 'Banner 1'},
   ];
 
   // Routing constants
@@ -192,10 +194,21 @@ export class HomeComponent implements OnInit {
     }
   ];
 
-  constructor(private router: Router) {
+  listBookssss: any[] = [];
+
+  constructor(private router: Router, private productService: ProductService) {
   }
 
   ngOnInit(): void {
+    this.productService.getProduct().subscribe({
+      next: (res) => {
+        this.listBookssss = res?.data;
+        console.log(this.listBookssss?.[0].imageNames?.[0] );
+      },
+      error: (err) => {
+        alert(err.error?.message);
+      }
+    });
   }
 
   // Lấy sách theo danh mục
@@ -210,7 +223,7 @@ export class HomeComponent implements OnInit {
 
   // Điều hướng đến trang chi tiết
   navigateToDetail(bookId: number) {
-    this.router.navigate(['/', this.ROUTING.DETAIL_BOOK, bookId]);
+    this.router.navigate(['/san-pham', bookId]);
   }
 
   // Điều hướng đến danh mục

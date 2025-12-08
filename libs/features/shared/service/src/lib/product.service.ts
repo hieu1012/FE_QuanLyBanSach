@@ -13,6 +13,10 @@ export class ProductService extends BaseHttpService {
         return this.get('products', {});
     }
 
+    getProductById(id: number): Observable<any> {
+        return this.get(`products/${id}`, {});
+    }
+
     getProductsHasPage(
         page: number = 0,
         size: number = 20,

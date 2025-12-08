@@ -1,0 +1,26 @@
+{
+  "projectType": "library",
+  "root": "libs/features/thanh-toan",
+  "sourceRoot": "libs/features/thanh-toan/src",
+  "prefix": "emi",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/features/thanh-toan"],
+      "options": {
+        "jestConfig": "libs/features/thanh-toan/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/features/thanh-toan/src/**/*.ts",
+          "libs/features/thanh-toan/src/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

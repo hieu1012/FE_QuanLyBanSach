@@ -1,0 +1,205 @@
+<div class="min-h-screen bg-gray-50 pb-20 px-4 lg:px-40 mt-10">
+  <div class="max-w-7xl mx-auto">
+
+    <!-- Breadcrumb -->
+    <div class="text-sm breadcrumbs mb-8">
+      <ul class="flex gap-2 text-gray-600">
+        <li><a routerLink="/trang-chu" class="hover:text-amber-600">Trang chủ/ </a></li>
+        <li><a class="hover:text-amber-600">{{ book.categoryName }}/ </a></li>
+        <li class="text-gray-900 font-medium">{{ book.title }}</li>
+      </ul>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-12 bg-white rounded-2xl shadow-xl overflow-hidden">
+
+      <!-- ==================== PHẦN ẢNH SÁCH ==================== -->
+      <div class="p-8 lg:p-12">
+        <!-- Ảnh chính -->
+        <div class="relative rounded-xl overflow-hidden shadow-2xl mb-amber-500/30 mb-6">
+          <img
+            [src]="mainImage || book?.imageUrls[0]"
+            [alt]="book.title"
+            class="w-full h-96 lg:h-full max-h-screen object-contain mx-auto transition-transform duration-500 hover:scale-105">
+        </div>
+
+        <!-- Thumbnail nhỏ bên dưới -->
+        <div class="grid grid-cols-4 sm:grid-cols-5 gap-3 md:gap-4">
+          <div
+            *ngFor="let img of book?.imageUrls; let i = index"
+            (click)="selectImage(img)"
+            class="cursor-pointer rounded-xl overflow-hidden border-4 transition-all duration-300 hover:border-amber-500 group"
+            [class.border-amber-500]="mainImage === img || (!mainImage && i === 0)"
+            [class.border-gray-200]="mainImage !== img && !( !mainImage && i === 0 )">
+            <img
+              [src]="img"
+              [alt]="'Ảnh phụ ' + (i + 1)"
+              class="w-full h-24 sm:h-28 md:h-32 object-cover group-hover:opacity-80 transition-opacity"
+              loading="lazy">
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== THÔNG TIN SÁCH ==================== -->
+      <div class="p-8 lg:p-12 flex flex-col justify-between">
+
+        <div>
+          <!-- Tên sách -->
+          <h1 class="text-3xl lg:text-4xl font-black text-gray-800 leading-tight mb-4">
+            {{ book.title }}
+          </h1>
+
+          <!-- Đánh giá sao -->
+          <div class="flex items-center gap-3 mb-6">
+            <div class="flex text-amber-500">
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star-half-stroke"></i>
+            </div>
+            <span class="text-gray-600">(4.8) • 128 đánh giá • Đã bán 500+</span>
+          </div>
+
+          <!-- Giá -->
+          <div class="flex items-end gap-4 mb-6">
+            <div>
+              <span class="text-4xl lg:text-5xl font-bold text-red-600">
+                {{ book.discountPrice | number }}<sup>đ</sup>
+              </span>
+              <span *ngIf="book.discount > 0" class="block text-lg line-through text-gray-400 mt-1">
+                {{ book.price | number }}đ
+              </span>
+            </div>
+            <span *ngIf="book.discount > 0" class="bg-red-500 text-white px-4 py-2 rounded-full text-lg font-bold">
+              -{{ book.discount }}%
+            </span>
+          </div>
+
+          <!-- Tình trạng & số lượng -->
+          <div class="flex gap-6 text-lg mb-8">
+            <div class="flex items-center gap-2">
+              <i class="fa-solid fa-check-circle text-green-600"></i>
+              <span class="font-medium">Còn hàng ({{ book.stock }} cuốn)</span>
+            </div>
+            <div class="flex items-center gap-2 text-amber-600">
+              <i class="fa-solid fa-shipping-fast"></i>
+              <span>Giao nhanh 2h nội thành</span>
+            </div>
+          </div>
+
+          <!-- Số lượng mua -->
+          <div class="flex items-center gap-6 mb-10">
+            <span class="text-lg font-medium">Số lượng:</span>
+
+            <div class="flex items-center border border-gray-300 rounded-xl overflow-hidden select-none">
+              <!-- Nút giảm -->
+              <button
+                (click)="decreaseQuantity()"
+                [disabled]="quantity <= 1"
+                [class.opacity-50]="quantity <= 1"
+                [class.cursor-not-allowed]="quantity <= 1"
+                class="px-6 py-4 hover:bg-gray-100 disabled:hover:bg-transparent transition text-2xl font-light text-gray-700">
+                −
+              </button>
+
+              <!-- Ô hiển thị số lượng -->
+              <input
+                type="text"
+                [value]="quantity"
+                class="w-24 text-center py-4 text-xl font-bold text-gray-800 bg-gray-50"
+                readonly>
+
+              <!-- Nút tăng -->
+              <button
+                (click)="increaseQuantity()"
+                [disabled]="quantity >= book?.stock"
+                [class.opacity-50]="quantity >= book?.stock"
+                [class.cursor-not-allowed]="quantity >= book?.stock"
+                class="px-6 py-4 hover:bg-gray-100 disabled:hover:bg-transparent transition text-2xl font-light text-gray-700">
+                +
+              </button>
+            </div>
+          </div>
+
+          <!-- Nút hành động -->
+          <div class="flex gap-4">
+            <button (click)="addToCart()"
+                    class="flex-1 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold text-xl py-5 rounded-2xl shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-3">
+              <i class="fa-solid fa-cart-plus text-2xl"></i>
+              Thêm vào giỏ hàng
+            </button>
+            <button
+              class="px-8 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-bold text-xl rounded-2xl shadow-xl transform hover:scale-110 transition-all">
+              Mua ngay
+            </button>
+          </div>
+        </div>
+
+        <!-- Ưu đãi nổi bật -->
+        <div class="mt-10 p-6 bg-gradient-to-r from-amber-50 to-orange-50 rounded-2xl border border-amber-200">
+          <h3 class="font-bold text-amber-800 mb-3 flex items-center gap-2">
+            <i class="fa-solid fa-gift"></i> Ưu đãi đặc biệt
+          </h3>
+          <ul class="space-y-2 text-gray-700">
+            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-600"></i> Tặng kèm bookmark cao
+              cấp
+            </li>
+            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-600"></i> Miễn phí đóng gói quà
+            </li>
+            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-600"></i> Freeship đơn từ 299k
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== MÔ TẢ CHI TIẾT & THÔNG SỐ ==================== -->
+    <div class="mt-16 grid lg:grid-cols-3 gap-amber-100 rounded-2xl overflow-hidden shadow-lg">
+      <div class="lg:col-span-2 p-10 bg-white">
+        <h2 class="text-3xl font-black text-gray-800 mb-8">Mô tả sản phẩm</h2>
+        <div class="prose prose-lg text-gray-700 leading-relaxed" [innerHTML]="book.description"></div>
+        <p class="mt-6 text-gray-600 italic">
+          "{{ book.title }}" là cuốn sách không thể thiếu cho những ai muốn nâng cao kỹ năng lập trình C từ cơ bản đến
+          nâng cao.
+        </p>
+      </div>
+
+      <div class="p-10 bg-gradient-to-br from-amber-50 to-orange-50">
+        <h3 class="text-2xl font-bold text-amber-800 mb-6">Thông tin chi tiết</h3>
+        <dl class="space-y-4 text-gray-700">
+          <div class="flex justify-between">
+            <dt class="font-medium">Danh mục</dt>
+            <dd class="text-amber-700 font-bold">{{ book.categoryName }}</dd>
+          </div>
+          <div class="flex justify-between">
+            <dt class="font-medium">Tác giả</dt>
+            <dd>Nguyễn Văn A (tạm)</dd>
+          </div>
+          <div class="flex justify-between">
+            <dt class="font-medium">Nhà xuất bản</dt>
+            <dd>NXB Trẻ</dd>
+          </div>
+          <div class="flex justify-between">
+            <dt class="font-medium">Năm xuất bản</dt>
+            <dd>2024</dd>
+          </div>
+          <div class="flex justify-between">
+            <dt class="font-medium">Số trang</dt>
+            <dd>420 trang</dd>
+          </div>
+          <div class="flex justify-between">
+            <dt class="font-medium">Kích thước</dt>
+            <dd>14.5 x 20.5 cm</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+
+    <!-- Sản phẩm liên quan (tùy chọn thêm sau) -->
+    <div class="mt-20">
+      <h2 class="text-3xl font-bold text-gray-800 mb-10">Sản phẩm liên quan</h2>
+      <!-- Có thể thêm grid 6 cuốn sách giống trang chủ -->
+    </div>
+
+  </div>
+</div>

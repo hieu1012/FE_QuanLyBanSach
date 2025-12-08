@@ -37,4 +37,19 @@ export const appRoutes: Routes = [
     loadChildren: () =>
       import('@emi/features/gioi-thieu').then(m => m.FeaturesGioiThieuModule),
   },
+  {
+    path        : 'san-pham',
+    loadChildren: () =>
+      import('@emi/features/chi-tiet-san-pham').then(m => m.FeaturesChiTietSanPhamModule),
+  },
+  {
+    path        : 'gio-hang',
+    loadChildren: () =>
+      import('@emi/features/gio-hang').then(m => m.FeaturesGioHangModule),
+  },
+  {
+    path        : 'don-hang',
+    loadChildren: () =>
+      import('@emi/features/don-hang').then(m => m.FeaturesDonHangModule),
+  },
 ];

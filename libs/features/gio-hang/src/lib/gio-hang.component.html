@@ -1,0 +1,222 @@
+<!--<div class="min-h-screen bg-gray-50 py-10 px-4 lg:px-40">-->
+<!--  <div class="max-w-7xl mx-auto">-->
+
+<!--    &lt;!&ndash; Tiêu đề &ndash;&gt;-->
+<!--    <h1 class="text-4xl font-black text-gray-800 mb-10">Giỏ hàng của bạn</h1>-->
+
+<!--    &lt;!&ndash; Nếu giỏ hàng trống &ndash;&gt;-->
+<!--    <div *ngIf="!cart || cart.items.length === 0" class="text-center py-20">-->
+<!--&lt;!&ndash;      <img src="https://cdni.iconscout.com/illustration/premium/thumb/empty-cart-4816553-4009554.png"&ndash;&gt;-->
+<!--&lt;!&ndash;           alt="Giỏ hàng trống" class="w-64 mx-auto mb-8 opacity-70">&ndash;&gt;-->
+<!--      <p class="text-2xl text-gray-600 mb-6">Ôi không! Giỏ hàng của bạn đang trống</p>-->
+<!--      <a routerLink="/" class="inline-block bg-amber-500 hover:bg-amber-600 text-white font-bold text-xl px-10 py-4 rounded-2xl shadow-lg transform hover:scale-105 transition">-->
+<!--        Tiếp tục mua sắm-->
+<!--      </a>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; Nếu có sản phẩm &ndash;&gt;-->
+<!--    <div *ngIf="cart && cart.items.length > 0" class="grid lg:grid-cols-3 gap-10">-->
+
+<!--      &lt;!&ndash; Danh sách sản phẩm &ndash;&gt;-->
+<!--      <div class="lg:col-span-2 space-y-6">-->
+<!--        <div *ngFor="let item of cart.items; let i = index"-->
+<!--             class="bg-white rounded-2xl shadow-lg p-6 flex gap-6 hover:shadow-xl transition">-->
+
+<!--          &lt;!&ndash; Ảnh sách &ndash;&gt;-->
+<!--          <div class="flex-shrink-0">-->
+<!--            <img [src]="item.product.imageUrls?.[0] || 'https://via.placeholder.com/150?text=No+Image'"-->
+<!--                 [alt]="item.product.title"-->
+<!--                 class="w-32 h-40 object-cover rounded-xl shadow">-->
+<!--          </div>-->
+
+<!--          &lt;!&ndash; Thông tin sách &ndash;&gt;-->
+<!--          <div class="flex-1">-->
+<!--            <h3 class="text-xl font-bold text-gray-800 mb-2">{{ item.product.title }}</h3>-->
+<!--            <p class="text-sm text-gray-500 mb-3">{{ item.product.categoryName }}</p>-->
+
+<!--            &lt;!&ndash; Giá &ndash;&gt;-->
+<!--            <div class="flex items-center gap-3 mb-4">-->
+<!--              <span class="text-2xl font-bold text-red-600">-->
+<!--                {{ item.unitPrice | number:'1.0-0' }}đ-->
+<!--              </span>-->
+<!--              <span *ngIf="item.product.discount > 0" class="text-sm line-through text-gray-400">-->
+<!--                {{ item.product.price | number:'1.0-0' }}đ-->
+<!--              </span>-->
+<!--              <span *ngIf="item.product.discount > 0" class="bg-red-500 text-white text-xs px-2 py-1 rounded">-->
+<!--                -{{ item.product.discount }}%-->
+<!--              </span>-->
+<!--            </div>-->
+
+<!--            &lt;!&ndash; Số lượng + Xóa &ndash;&gt;-->
+<!--            <div class="flex items-center justify-between">-->
+<!--              <div class="flex items-center border border-gray-300 rounded-xl overflow-hidden">-->
+<!--                <button (click)="updateQuantity(i, item.quantity - 1)"-->
+<!--                        [disabled]="item.quantity <= 1"-->
+<!--                        class="px-5 py-3 hover:bg-gray-100 disabled:opacity-50 text-xl">−</button>-->
+<!--                <input type="text" [value]="item.quantity" readonly-->
+<!--                       class="w-16 text-center py-3 font-bold text-lg">-->
+<!--                <button (click)="updateQuantity(i, item.quantity + 1)"-->
+<!--                        [disabled]="item.quantity >= item.product.stock"-->
+<!--                        class="px-5 py-3 hover:bg-gray-100 disabled:opacity-50 text-xl">+</button>-->
+<!--              </div>-->
+
+<!--              <button (click)="removeFromCart(item.product.id)"-->
+<!--                      class="text-red-500 hover:text-red-700 font-medium flex items-center gap-2">-->
+<!--                <i class="fa-solid fa-trash"></i> Xóa-->
+<!--              </button>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+
+<!--      &lt;!&ndash; Thanh toán bên phải &ndash;&gt;-->
+<!--      <div class="lg:col-span-1">-->
+<!--        <div class="bg-white rounded-2xl shadow-xl p-8 sticky top-6">-->
+<!--          <h2 class="text-2xl font-bold text-gray-800 mb-6">Tóm tắt đơn hàng</h2>-->
+
+<!--          <div class="space-y-4 text-lg">-->
+<!--            <div class="flex justify-between">-->
+<!--              <span>Tạm tính ({{ cart.items.length }} sản phẩm):</span>-->
+<!--              <span class="font-bold">{{ calculateSubTotal() | number:'1.0-0' }}đ</span>-->
+<!--            </div>-->
+<!--            <div class="flex justify-between text-gray-600">-->
+<!--              <span>Phí vận chuyển:</span>-->
+<!--              <span>Miễn phí</span>-->
+<!--            </div>-->
+<!--            <div class="border-t pt-4">-->
+<!--              <div class="flex justify-between text-2xl font-black text-amber-600">-->
+<!--                <span>Tổng cộng:</span>-->
+<!--                <span>{{ cart.totalAmount | number:'1.0-0' }}đ</span>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+
+<!--          <button class="w-full mt-8 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white font-bold text-xl py-5 rounded-2xl shadow-xl transform hover:scale-105 transition-all duration-300">-->
+<!--            Tiến hành thanh toán-->
+<!--          </button>-->
+
+<!--          <div class="mt-6 text-center text-sm text-gray-500">-->
+<!--            <i class="fa-solid fa-shield-alt text-green-600"></i> Thanh toán an toàn • Giao hàng nhanh 2h-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+
+<!--  </div>-->
+<!--</div>-->
+
+
+
+<div class="min-h-screen bg-gray-50 py-10 px-4 lg:px-40">
+  <div class="max-w-7xl mx-auto">
+
+    <!-- Tiêu đề -->
+    <h1 class="text-4xl font-black text-gray-800 mb-10">Giỏ hàng của bạn</h1>
+
+    <!-- Nếu giỏ hàng trống -->
+    <div *ngIf="!cart || cart.items.length === 0" class="text-center py-20">
+      <img src="https://images.unsplash.com/photo-1587563871167-1ec45cfd164d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+           alt="Giỏ hàng trống" class="w-64 mx-auto mb-8 opacity-80 object-contain"
+           onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMzIgMTJ2NDBNMjAgMjRsMjQgMTZMMjAgNDhsMjQgLTE2IiBzdHJva2U9IiM5Q0EwQ0YiIHN0cm9rZS13aWR0aD0iMyIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+PHBhdGggZD0iTTMyIDZDNzAgNiA2IDMyIDYgMzJzMjQgMjYgMjYgMjZTMzggNTggMzIgNTgiIHN0cm9rZT0iI0U1RTdFQiIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz48L3N2Zz4='; this.onerror=null;">
+      <p class="text-2xl font-bold text-gray-700 mb-4">Ôi không! Giỏ hàng của bạn đang trống</p>
+      <p class="text-lg text-gray-500 mb-8">Hãy tiếp tục mua sắm để khám phá hàng ngàn cuốn sách hay!</p>
+      <a routerLink="/" class="inline-block bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold text-xl px-10 py-4 rounded-2xl shadow-xl transform hover:scale-105 transition-all duration-300">
+        Tiếp tục mua sắm →
+      </a>
+    </div>
+
+    <!-- Nếu có sản phẩm -->
+    <div *ngIf="cart && cart.items.length > 0" class="grid lg:grid-cols-3 gap-10">
+
+      <!-- Danh sách sản phẩm (bên trái - chiều cao item nhỏ hơn) -->
+      <div class="lg:col-span-2 space-y-4"> <!-- Giảm space-y-6 → space-y-4 cho gọn -->
+        <div *ngFor="let item of cart.items; let i = index"
+             class="bg-white rounded-2xl shadow-lg p-4 flex gap-4 hover:shadow-xl transition"> <!-- Giảm p-6 → p-4 -->
+
+          <!-- Ảnh sách (nhỏ hơn) -->
+          <div class="flex-shrink-0">
+            <img [src]="item.product.imageUrls?.[0] || 'https://via.placeholder.com/120?text=No+Image'"
+                 [alt]="item.product.title"
+                 class="w-24 h-32 object-cover rounded-xl shadow"> <!-- Giảm w-32 h-40 → w-24 h-32 -->
+          </div>
+
+          <!-- Thông tin sách (gọn hơn) -->
+          <div class="flex-1">
+            <h3 class="text-lg font-bold text-gray-800 mb-1">{{ item.product.title }}</h3> <!-- Giảm text-xl mb-2 → text-lg mb-1 -->
+            <p class="text-xs text-gray-500 mb-2">{{ item.product.categoryName }}</p> <!-- Giảm text-sm mb-3 → text-xs mb-2 -->
+
+            <!-- Giá -->
+            <div class="flex items-center gap-2 mb-3"> <!-- Giảm gap-3 mb-4 → gap-2 mb-3 -->
+              <span class="text-xl font-bold text-red-600">
+                {{ item.unitPrice | number:'1.0-0' }}đ
+              </span>
+              <span *ngIf="item.product.discount > 0" class="text-xs line-through text-gray-400">
+                {{ item.product.price | number:'1.0-0' }}đ
+              </span>
+              <span *ngIf="item.product.discount > 0" class="bg-red-500 text-white text-xs px-2 py-1 rounded">
+                -{{ item.product.discount }}%
+              </span>
+            </div>
+
+            <!-- Số lượng + Xóa -->
+            <div class="flex items-center justify-between">
+              <div class="flex items-center border border-gray-300 rounded-xl overflow-hidden">
+                <button (click)="updateQuantity(i, item.quantity - 1)"
+                        [disabled]="item.quantity <= 1"
+                        class="px-4 py-2 hover:bg-gray-100 disabled:opacity-50 text-lg">−</button> <!-- Giảm px-5 py-3 text-xl → px-4 py-2 text-lg -->
+                <input type="text" [value]="item.quantity" readonly
+                       class="w-12 text-center py-2 font-bold text-base"> <!-- Giảm w-16 py-3 text-lg → w-12 py-2 text-base -->
+                <button (click)="updateQuantity(i, item.quantity + 1)"
+                        [disabled]="item.quantity >= item.product.stock"
+                        class="px-4 py-2 hover:bg-gray-100 disabled:opacity-50 text-lg">+</button>
+              </div>
+
+              <button (click)="removeFromCart(item.product.id)"
+                      class="text-red-500 hover:text-red-700 font-medium flex items-center gap-1 text-sm"> <!-- Giảm text-base gap-2 → text-sm gap-1 -->
+                <i class="fa-solid fa-trash"></i> Xóa
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Form tạo order bên phải (thay thế tóm tắt cũ) -->
+      <div class="lg:col-span-1">
+        <div class="bg-white rounded-2xl shadow-xl p-8 sticky top-6">
+          <h2 class="text-2xl font-bold text-gray-800 mb-6">Thông tin thanh toán</h2>
+
+          <!-- Form nhập dữ liệu -->
+          <form (ngSubmit)="createOrder()" class="space-y-4">
+            <div class="grid grid-cols-2 gap-4">
+              <input [(ngModel)]="orderData.firstName" name="firstName" placeholder="Họ" required
+                     class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-amber-500 focus:ring-2 focus:ring-amber-100">
+              <input [(ngModel)]="orderData.lastName" name="lastName" placeholder="Tên" required
+                     class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-amber-500 focus:ring-2 focus:ring-amber-100">
+            </div>
+            <input [(ngModel)]="orderData.address" name="address" placeholder="Địa chỉ" required
+                   class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-amber-500 focus:ring-2 focus:ring-amber-100">
+            <input [(ngModel)]="orderData.mobileNo" name="mobileNo" placeholder="Số điện thoại" required
+                   class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-amber-500 focus:ring-2 focus:ring-amber-100">
+            <!-- Tóm tắt ngắn gọn -->
+            <div class="border-t pt-4 mt-4">
+              <div class="flex justify-between text-xl font-bold text-amber-600">
+                <span>Tổng cộng:</span>
+                <span>{{ cart.totalAmount | number:'1.0-0' }}đ</span>
+              </div>
+            </div>
+
+            <!-- Nút tạo order -->
+            <button type="submit" class="w-full mt-6 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white font-bold text-xl py-5 rounded-2xl shadow-xl transform hover:scale-105 transition-all duration-300">
+              Tiến hành thanh toán
+            </button>
+          </form>
+
+          <div class="mt-6 text-center text-sm text-gray-500">
+            <i class="fa-solid fa-shield-alt text-green-600"></i> Thanh toán an toàn • Giao hàng nhanh 2h
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

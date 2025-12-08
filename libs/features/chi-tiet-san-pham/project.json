@@ -1,0 +1,26 @@
+{
+  "projectType": "library",
+  "root": "libs/features/chi-tiet-san-pham",
+  "sourceRoot": "libs/features/chi-tiet-san-pham/src",
+  "prefix": "emi",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/features/chi-tiet-san-pham"],
+      "options": {
+        "jestConfig": "libs/features/chi-tiet-san-pham/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/features/chi-tiet-san-pham/src/**/*.ts",
+          "libs/features/chi-tiet-san-pham/src/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

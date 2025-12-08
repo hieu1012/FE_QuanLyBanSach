@@ -42,7 +42,9 @@
       ],
       "@emi/features/danh-muc": ["libs/features/danh-muc/src/index.ts"],
       "@emi/features/dashboard": ["libs/features/dashboard/src/index.ts"],
+      "@emi/features/don-hang": ["libs/features/don-hang/src/index.ts"],
       "@emi/features/footer": ["libs/features/footer/src/index.ts"],
+      "@emi/features/gio-hang": ["libs/features/gio-hang/src/index.ts"],
       "@emi/features/gioi-thieu": ["libs/features/gioi-thieu/src/index.ts"],
       "@emi/features/header": ["libs/features/header/src/index.ts"],
       "@emi/features/home": ["libs/features/home/src/index.ts"],
@@ -55,6 +57,7 @@
         "libs/features/shared/service/src/index.ts"
       ],
       "@emi/features/shell": ["libs/features/shell/src/index.ts"],
+      "@emi/features/thanh-toan": ["libs/features/thanh-toan/src/index.ts"],
       "@emi/shared/shell": ["libs/shared/shell/src/index.ts"],
       "@emi/shared/ui": ["libs/shared/ui/src/index.ts"]
     }

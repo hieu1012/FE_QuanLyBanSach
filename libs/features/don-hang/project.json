@@ -1,0 +1,26 @@
+{
+  "projectType": "library",
+  "root": "libs/features/don-hang",
+  "sourceRoot": "libs/features/don-hang/src",
+  "prefix": "emi",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/features/don-hang"],
+      "options": {
+        "jestConfig": "libs/features/don-hang/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/features/don-hang/src/**/*.ts",
+          "libs/features/don-hang/src/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

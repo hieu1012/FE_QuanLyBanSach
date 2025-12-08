@@ -1,0 +1,26 @@
+{
+  "projectType": "library",
+  "root": "libs/features/gio-hang",
+  "sourceRoot": "libs/features/gio-hang/src",
+  "prefix": "emi",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/features/gio-hang"],
+      "options": {
+        "jestConfig": "libs/features/gio-hang/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/features/gio-hang/src/**/*.ts",
+          "libs/features/gio-hang/src/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}
