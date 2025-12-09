@@ -9,10 +9,11 @@ import { homeRoutes } from './home.routes';
 import { SharedUiModule } from '@emi/shared/ui';
 
 import { SwiperModule } from 'swiper/angular';
+import { NzNotificationModule } from 'ng-zorro-antd/notification';
 
 
 @NgModule({
-  imports     : [CommonModule, RouterModule.forChild(homeRoutes), SharedUiModule, SwiperModule],
+  imports     : [CommonModule, RouterModule.forChild(homeRoutes), SharedUiModule, SwiperModule, NzNotificationModule],
   declarations: [HomeComponent],
   exports     : [HomeComponent],
 })

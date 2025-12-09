@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SwiperOptions } from 'swiper/types';  // ← mới
-import { ProductService, } from '@emi/features/shared/service';
+import { CartService, ProductService, } from '@emi/features/shared/service';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 @Component({
   selector   : 'emi-home',
@@ -196,7 +197,7 @@ export class HomeComponent implements OnInit {
 
   listBookssss: any[] = [];
 
-  constructor(private router: Router, private productService: ProductService) {
+  constructor(private router: Router, private productService: ProductService, private notification: NzNotificationService, private cartService: CartService,) {
   }
 
   ngOnInit(): void {
@@ -229,5 +230,19 @@ export class HomeComponent implements OnInit {
   // Điều hướng đến danh mục
   navigateToCatalog(category: string) {
     this.router.navigate(['/', this.ROUTING.CATALOG, category]);
+  }
+
+  addToCart(bookId: number, event: Event) {
+    event.stopPropagation();
+    this.cartService.addItemToCart(bookId, 1).subscribe({
+      next: (response) => {
+        this.notification.success('Thêm vào giỏ hàng', response.message);
+      },
+      error: (err) => {
+        console.error('Lỗi khi thêm vào giỏ hàng', err);
+        this.notification.error('Thêm vào giỏ hàng', err ?.error?.message || 'Thêm vào giỏ hàng thất bại!');
+        // Hiển thị thông báo lỗi
+      }
+    });
   }
 }
