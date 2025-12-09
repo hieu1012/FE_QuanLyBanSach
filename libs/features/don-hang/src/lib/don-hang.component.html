@@ -175,7 +175,7 @@
 
             <div class="text-right">
               <p class="text-2xl font-black text-red-600">{{ order.totalPrice | number:'1.0-0' }}đ</p>
-              <p class="text-sm text-gray-500">{{ order.items?.length || 1 }} sản phẩm</p>
+              <p class="text-sm text-gray-500">{{ order.totalItem || 1 }} sản phẩm</p>
             </div>
 
             <i class="fa-solid fa-chevron-down text-xl text-gray-400 transition-transform duration-300"

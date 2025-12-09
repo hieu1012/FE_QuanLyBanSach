@@ -41,7 +41,7 @@
 
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService, AuthUser } from '@emi/features/shared/service';
+import { AuthService, AuthUser, CartService } from '@emi/features/shared/service';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -56,9 +56,13 @@ export class HeaderComponent {
   isLoggedIn$: Observable<boolean>;
   currentUser$: Observable<AuthUser | null>;
 
-  constructor(private router: Router, public authService: AuthService) {
+  cartQuantity$ = this.cartService.cartQuantity$;
+  cartItems$ = this.cartService.cartItems$;
+
+  constructor(private router: Router, public authService: AuthService, private cartService: CartService,) {
     this.isLoggedIn$ = this.authService.loggedIn$;
     this.currentUser$ = this.authService.user$;
+    this.cartService.refreshCart();
   }
 
   logout() {

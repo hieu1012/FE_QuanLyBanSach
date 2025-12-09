@@ -86,8 +86,8 @@
 //
 
 import { Component, OnInit } from '@angular/core';
-import { ProductService, CartService } from '@emi/features/shared/service';
-
+import { ProductService, CartService, OrderService } from '@emi/features/shared/service';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 @Component({
   selector: 'emi-gio-hang',
   templateUrl: './gio-hang.component.html',
@@ -114,7 +114,9 @@ export class GioHangComponent implements OnInit {
 
   constructor(
     private bookService: ProductService,
-    private cartService: CartService
+    private cartService: CartService,
+    private orderService: OrderService,
+    private notification: NzNotificationService
   ) {}
 
   ngOnInit(): void {
@@ -162,18 +164,44 @@ export class GioHangComponent implements OnInit {
 
   // Tạo order
   createOrder() {
-    // this.updateOrderItems(); // Đảm bảo đồng bộ trước khi gửi
-    // this.cartService.createOrder(this.orderData).subscribe({
-    //   next: (response) => {
-    //     console.log('Order tạo thành công:', response);
-    //     // Redirect đến trang xác nhận hoặc thanh toán
-    //     // this.router.navigate(['/order-success', response.id]);
-    //   },
-    //   error: (err) => {
-    //     console.error('Lỗi tạo order', err);
-    //     // Hiển thị toast lỗi
-    //   }
-    // });
+    this.updateOrderItems();
+    console.log('cart', this.cart)
+    const requestPayload = {
+      status: "PENDING",
+      paymentType: "COD",
+      totalPrice: this.cart.totalAmount,
+      user:{
+        id: this.cart.userId
+      },
+      orderAddress:{
+        firstName: this.orderData.firstName,
+        lastName: this.orderData.lastName,
+        address: this.orderData.address,
+        city: this.orderData.city,
+        state: this.orderData.state,
+        pincode: this.orderData.pincode,
+        mobileNo: this.orderData.mobileNo,
+        email: this.orderData.email
+      },
+      items: this.cart.items.map((item: any) => ({
+        product: {
+          id: item.product.id
+        },
+        quantity: item.quantity
+      }))
+    }
+
+    console.log('Payload tạo order:', requestPayload);
+    this.orderService.createOrder(requestPayload).subscribe({
+      next: (response) => {
+        this.notification.success('', response.message);
+        this.loadCart();
+      },
+      error: (err) => {
+        console.error('Lỗi tạo order', err);
+        // Hiển thị toast lỗi
+      }
+    });
   }
 
   calculateSubTotal(): number {

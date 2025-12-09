@@ -52,4 +52,9 @@ export const appRoutes: Routes = [
     loadChildren: () =>
       import('@emi/features/don-hang').then(m => m.FeaturesDonHangModule),
   },
+  {
+    path        : 'danh-muc-sach',
+    loadChildren: () =>
+      import('@emi/features/danh-muc').then(m => m.FeaturesDanhMucModule),
+  },
 ];

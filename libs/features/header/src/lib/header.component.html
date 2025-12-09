@@ -197,25 +197,27 @@
              class="cursor-pointer hover:text-cyan-600 transition">Trang chủ</a>
 
           <!-- Dropdown: Danh mục sách -->
-          <div class="cursor-pointer flex items-center space-x-1 hover:text-cyan-600 relative group transition">
-            <span class="font-semibold mr-[3px]" [ngClass]="{ 'text-cyan-600': isActive('/danh-muc') }">Danh mục sách</span>
-            <i class="fas fa-chevron-down text-xs transition-transform duration-200 group-hover:rotate-180"></i>
+<!--          <div class="cursor-pointer flex items-center space-x-1 hover:text-cyan-600 relative group transition">-->
+<!--            <span class="font-semibold mr-[3px]" [ngClass]="{ 'text-cyan-600': isActive('/danh-muc') }">Danh mục sách</span>-->
+<!--            <i class="fas fa-chevron-down text-xs transition-transform duration-200 group-hover:rotate-180"></i>-->
 
-            <div class="absolute top-full left-0 mt-2 w-[244px] rounded-xl shadow-lg bg-white py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-50">
-              <ul class="py-0">
-                <li><a routerLink="/danh-muc/van-hoc" class="block text-[18px] py-3 px-4 text-gray-500 hover:text-gray-900 hover:bg-gray-50 transition"
-                       [ngClass]="{ 'text-cyan-600': isActive('/danh-muc/van-hoc') }">Văn học</a></li>
-                <li><a routerLink="/danh-muc/kinh-te" class="block text-[18px] py-3 px-4 text-gray-500 hover:text-gray-900 hover:bg-gray-50 transition"
-                       [ngClass]="{ 'text-cyan-600': isActive('/danh-muc/kinh-te') }">Kinh tế</a></li>
-                <li><a routerLink="/danh-muc/ky-nang-song" class="block text-[18px] py-3 px-4 text-gray-500 hover:text-gray-900 hover:bg-gray-50 transition"
-                       [ngClass]="{ 'text-cyan-600': isActive('/danh-muc/ky-nang-song') }">Kỹ năng sống</a></li>
-                <li><a routerLink="/danh-muc/thieu-nhi" class="block text-[18px] py-3 px-4 text-gray-500 hover:text-gray-900 hover:bg-gray-50 transition"
-                       [ngClass]="{ 'text-cyan-600': isActive('/danh-muc/thieu-nhi') }">Thiếu nhi</a></li>
-                <li><a routerLink="/danh-muc/giao-khoa" class="block text-[18px] py-3 px-4 text-gray-500 hover:text-gray-900 hover:bg-gray-50 transition"
-                       [ngClass]="{ 'text-cyan-600': isActive('/danh-muc/giao-khoa') }">Sách giáo khoa</a></li>
-              </ul>
-            </div>
-          </div>
+<!--            <div class="absolute top-full left-0 mt-2 w-[244px] rounded-xl shadow-lg bg-white py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-50">-->
+<!--              <ul class="py-0">-->
+<!--                <li><a routerLink="/danh-muc/van-hoc" class="block text-[18px] py-3 px-4 text-gray-500 hover:text-gray-900 hover:bg-gray-50 transition"-->
+<!--                       [ngClass]="{ 'text-cyan-600': isActive('/danh-muc/van-hoc') }">Văn học</a></li>-->
+<!--                <li><a routerLink="/danh-muc/kinh-te" class="block text-[18px] py-3 px-4 text-gray-500 hover:text-gray-900 hover:bg-gray-50 transition"-->
+<!--                       [ngClass]="{ 'text-cyan-600': isActive('/danh-muc/kinh-te') }">Kinh tế</a></li>-->
+<!--                <li><a routerLink="/danh-muc/ky-nang-song" class="block text-[18px] py-3 px-4 text-gray-500 hover:text-gray-900 hover:bg-gray-50 transition"-->
+<!--                       [ngClass]="{ 'text-cyan-600': isActive('/danh-muc/ky-nang-song') }">Kỹ năng sống</a></li>-->
+<!--                <li><a routerLink="/danh-muc/thieu-nhi" class="block text-[18px] py-3 px-4 text-gray-500 hover:text-gray-900 hover:bg-gray-50 transition"-->
+<!--                       [ngClass]="{ 'text-cyan-600': isActive('/danh-muc/thieu-nhi') }">Thiếu nhi</a></li>-->
+<!--                <li><a routerLink="/danh-muc/giao-khoa" class="block text-[18px] py-3 px-4 text-gray-500 hover:text-gray-900 hover:bg-gray-50 transition"-->
+<!--                       [ngClass]="{ 'text-cyan-600': isActive('/danh-muc/giao-khoa') }">Sách giáo khoa</a></li>-->
+<!--              </ul>-->
+<!--            </div>-->
+<!--          </div>-->
+          <a routerLink="/danh-muc-sach" [ngClass]="{ 'text-cyan-600': isActive('/danh-muc-sach') }"
+             class="cursor-pointer hover:text-cyan-600 transition">Danh mục sách</a>
           <a routerLink="/khuyen-mai" [ngClass]="{ 'text-cyan-600': isActive('/khuyen-mai') }"
              class="cursor-pointer hover:text-cyan-600 transition">Khuyến mãi</a>
 
@@ -233,7 +235,7 @@
         <ng-container *ngIf="isLoggedIn$ | async; else guestMenu">
           <a routerLink="/gio-hang" class="relative p-2 hover:bg-gray-100 rounded-lg transition-colors">
             <i class="fas fa-shopping-cart text-xl text-gray-700"></i>
-            <span class="absolute -top-1 -right-1 bg-gradient-to-br from-blue-600 to-cyan-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-medium">3</span>
+            <span *ngIf="cartQuantity$ | async as quantity" class="absolute -top-1 -right-1 bg-gradient-to-br from-blue-600 to-cyan-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-medium">{{quantity}}</span>
           </a>
           <div class="flex items-center space-x-3 relative group">
 
@@ -244,9 +246,7 @@
               </span>
             </button>
             <div class="absolute top-full right-0 mt-2 w-[180px] rounded-xl shadow-lg bg-white py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-50">
-              <a routerLink="/tai-khoan" class="block py-2 px-4 text-gray-700 hover:bg-gray-100 transition-colors">Tài khoản</a>
               <a routerLink="/don-hang" class="block py-2 px-4 text-gray-700 hover:bg-gray-100 transition-colors">Đơn hàng</a>
-              <a routerLink="/yeu-thich" class="block py-2 px-4 text-gray-700 hover:bg-gray-100 transition-colors">Yêu thích</a>
               <hr class="my-2">
               <a (click)="logout()" class="block py-2 px-4 text-cyan-600 hover:bg-gray-100 transition-colors font-medium">Đăng xuất</a>
             </div>
