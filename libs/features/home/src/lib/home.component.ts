@@ -236,7 +236,7 @@ export class HomeComponent implements OnInit {
     event.stopPropagation();
     this.cartService.addItemToCart(bookId, 1).subscribe({
       next: (response) => {
-        this.notification.success('Thêm vào giỏ hàng', response.message);
+        // this.notification.success('Thêm vào giỏ hàng', response.message);
       },
       error: (err) => {
         console.error('Lỗi khi thêm vào giỏ hàng', err);

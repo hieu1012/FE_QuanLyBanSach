@@ -123,4 +123,56 @@ export class DonHangComponent implements OnInit {
   getItemTotal(item: any): number {
     return item.price * item.quantity;
   }
+
+  // Hủy đơn hàng
+  cancelOrder(orderId: number): void {
+    if (confirm('Bạn có chắc chắn muốn hủy đơn hàng này không?')) {
+      this.orderService.cancelOrder(orderId).subscribe({
+        next: (response) => {
+          alert('Hủy đơn hàng thành công!');
+          this.loadOrders();
+          this.selectedOrder = null;
+        },
+        error: (error) => {
+          alert('Có lỗi xảy ra khi hủy đơn hàng!');
+          console.error(error);
+        }
+      });
+    }
+  }
+
+// Thanh toán đơn hàng
+  payOrder(orderId: any): void {
+    if (confirm('Bạn có muốn thanh toán đơn hàng này không? ')) {
+      const paymentPayload: any = {
+        orderAddress: {
+          id: orderId.id,
+          firstName: orderId.firstName,
+          lastName: orderId.lastName,
+          address: orderId.address,
+          orderId: orderId.orderId,
+          city: orderId.city,
+          state: orderId.state,
+          pincode: orderId.pincode,
+          mobileNo:  orderId.mobileNo,
+          email: orderId.email
+        },
+        paymentType: 'COD'
+      };
+
+      this.orderService.checkoutOrder(paymentPayload).subscribe({
+        next: (response) => {
+          alert('Thanh toán thành công!');
+          this.loadOrders();
+          this.selectedOrder = null;
+        },
+        error: (error) => {
+          alert('Có lỗi xảy ra khi thanh toán!');
+          console.error(error);
+        }
+      });
+
+      console.log('Thanh toán đơn hàng:', paymentPayload);
+    }
+  }
 }

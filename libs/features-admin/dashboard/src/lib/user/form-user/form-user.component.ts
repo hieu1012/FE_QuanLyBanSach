@@ -16,7 +16,6 @@ export class FormUserComponent implements OnInit {
   readonly roleOptions = [
     { value: 'USER', label: 'Người dùng' },
     { value: 'ADMIN', label: 'Quản trị viên' }
-    // Nếu cần MASTER thì thêm vào đây, mặc định không cho tạo user master
   ];
 
   constructor(
@@ -32,8 +31,8 @@ export class FormUserComponent implements OnInit {
       phoneNumber: [''],
       address: [''],
       password: ['', this.user ? [] : [Validators.required, Validators.minLength(6)]], // Nếu sửa thì optional
-      role: ['USER', Validators.required],
-      isActive: [true]
+      role: ['', Validators.required],
+      // isActive: [true]
     });
 
     if (this.user) {
@@ -44,7 +43,7 @@ export class FormUserComponent implements OnInit {
         phoneNumber: this.user.phoneNumber,
         address: this.user.address,
         role: this.user.role,
-        isActive: !!this.user.isActive
+        // isActive: !!this.user.isActive
       });
       // Nếu sửa thì password là tùy chọn, không required
       this.userForm.get('password')?.setValidators([]);
@@ -62,6 +61,11 @@ export class FormUserComponent implements OnInit {
     if (!formValue.password) {
       delete formValue.password;
     }
+    if(this.user){
+      delete formValue.username;
+      delete formValue.role;
+    }
+
     // Trả về dữ liệu khi submit
     this.modal.close(formValue);
   }

@@ -78,7 +78,7 @@ export class ChiTietSanPhamComponent implements OnInit {
 
     this.cartService.addItemToCart(this.bookId, this.quantity).subscribe({
       next: (response) => {
-        this.notification.success('Thêm vào giỏ hàng', response.message);
+        // this.notification.success('Thêm vào giỏ hàng', response.message);
         if(!this.bookId) return;
         this.loadBook(this.bookId);
       },

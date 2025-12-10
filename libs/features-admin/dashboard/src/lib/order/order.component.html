@@ -1,1 +1,393 @@
-<p>order works!</p>
+<!-- Search Bar & Filters - GIỐNG HỆT PRODUCT -->
+<div class="flex items-center gap-3 mb-4 p-4 bg-gray-50 rounded-lg">
+  <!-- Quick Search Input -->
+  <input
+    nz-input
+    [(ngModel)]="quickKeyword"
+    placeholder="Tìm theo mã đơn, khách hàng, email, điện thoại..."
+    class="w-64"
+    (keyup.enter)="onQuickSearch()"
+  />
+
+  <!-- Search Button -->
+  <button nz-button nzType="primary" (click)="onQuickSearch()" class="flex items-center gap-2">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    Tìm kiếm
+  </button>
+
+  <!-- Advanced Filter Dropdown -->
+  <button
+    nz-button
+    nz-dropdown
+    [nzDropdownMenu]="menu"
+    nzPlacement="bottomCenter"
+    [nzClickHide]="false"
+    nzTrigger="click"
+    class="flex items-center gap-2"
+  >
+    <i class="fa-solid fa-filter"></i>
+    Bộ lọc nâng cao
+  </button>
+
+  <!-- Filter Dropdown - GIỐNG HỆT PRODUCT -->
+  <nz-dropdown-menu #menu="nzDropdownMenu">
+    <div nzDropdownSticky class="p-4 w-80 bg-white rounded-lg shadow-lg" (mousedown)="$event.stopPropagation()">
+      <form [formGroup]="filterForm" (ngSubmit)="onAdvanceSearch()" autocomplete="off"
+            (click)="$event.stopPropagation()">
+
+        <!-- Trạng thái -->
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700 mb-1">Trạng thái đơn hàng</label>
+          <nz-select formControlName="status" nzAllowClear nzPlaceHolder="Chọn trạng thái" class="w-full" nzShowSearch>
+            <nz-option nzValue="PENDING" nzLabel="Chờ xử lý"></nz-option>
+            <nz-option nzValue="PROCESSING" nzLabel="Đang xử lý"></nz-option>
+            <nz-option nzValue="SHIPPED" nzLabel="Đã giao vận chuyển"></nz-option>
+            <nz-option nzValue="DELIVERED" nzLabel="Đã giao thành công"></nz-option>
+            <nz-option nzValue="CANCEL_REQUESTED" nzLabel="Yêu cầu hủy"></nz-option>
+            <nz-option nzValue="CANCELLED" nzLabel="Đã hủy"></nz-option>
+          </nz-select>
+        </div>
+
+        <!-- Khoảng ngày -->
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700 mb-1">Khoảng thời gian</label>
+          <div class="flex gap-2">
+            <nz-date-picker formControlName="startDate" class="flex-1" nzFormat="dd/MM/yyyy"
+                            nzPlaceHolder="Từ"></nz-date-picker>
+            <nz-date-picker formControlName="endDate" class="flex-1" nzFormat="dd/MM/yyyy"
+                            nzPlaceHolder="Đến"></nz-date-picker>
+          </div>
+        </div>
+
+        <!-- Buttons -->
+        <div class="flex justify-end gap-2 pt-2 border-t">
+          <button nz-button nzType="default" type="button" (click)="resetFilter()">
+            <i class="fa-solid fa-rotate-right mr-1"></i>
+            Làm mới
+          </button>
+          <button nz-button nzType="primary" type="submit" [nzLoading]="loading">
+            <i class="fa-solid fa-check mr-1"></i>
+            Áp dụng
+          </button>
+        </div>
+      </form>
+    </div>
+  </nz-dropdown-menu>
+
+  <!-- Nút xem tổng quan (tùy chọn) hoặc để trống để giống Product -->
+  <div class="ml-auto"></div>
+</div>
+
+<!-- Order Table - DÙNG CHUNG CLASS VÀ STYLE VỚI PRODUCT -->
+<nz-table
+  #orderTable
+  [nzData]="orders"
+  [nzLoading]="loading"
+  [nzTotal]="total"
+  [nzPageSize]="pageSize"
+  [nzPageIndex]="pageIndex"
+  [nzFrontPagination]="false"
+  [nzPageSizeOptions]="[10, 20, 30, 40, 50]"
+  [nzShowSizeChanger]="true"
+  (nzQueryParams)="onTableChange($event)"
+  [nzScroll]="{ y: '480px' }"
+  class="product-table"
+>
+  <thead>
+  <tr>
+    <th nzWidth="50px" nzAlign="center">STT</th>
+    <th nzWidth="120px">Mã đơn</th>
+    <th nzWidth="100px" nzAlign="center">Thao tác</th>
+    <th nzWidth="280px">Khách hàng & Sản phẩm</th>
+    <th nzWidth="140px" nzAlign="right">Tổng tiền</th>
+    <th nzWidth="130px" nzAlign="center">Trạng thái</th>
+    <th nzWidth="150px">Ngày đặt</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let order of orderTable.data; let i = index">
+    <td nzAlign="center">
+      <span class="text-gray-500 font-medium">{{ i + 1 + (pageIndex - 1) * pageSize }}</span>
+    </td>
+    <td>
+      <span class="font-bold text-blue-600">#{{ order.orderId }}</span>
+    </td>
+    <td nzAlign="center">
+      <button class="border-gray-200 rounded hover:bg-gray-100 hover:border-blue-300"
+              nz-button nzSize="small" nz-dropdown [nzDropdownMenu]="actionMenu">
+        <i class="fas fa-ellipsis-v"></i>
+      </button>
+
+      <nz-dropdown-menu #actionMenu="nzDropdownMenu">
+        <ul nz-menu>
+          <li nz-menu-item (click)="viewDetail(order.id)">
+            <i class="fa-solid fa-eye mr-2 text-blue-600"></i>Xem chi tiết
+          </li>
+          <li nz-menu-item *ngIf="order.status === 'PENDING'" (click)="updateStatus(order.id, 'PROCESSING')">
+            <i class="fa-solid fa-cog mr-2 text-yellow-600"></i>Bắt đầu xử lý
+          </li>
+          <li nz-menu-item *ngIf="order.status === 'PROCESSING'" (click)="updateStatus(order.id, 'SHIPPED')">
+            <i class="fa-solid fa-truck mr-2 text-blue-600"></i>Đã giao vận chuyển
+          </li>
+          <li nz-menu-item *ngIf="order.status === 'SHIPPED'" (click)="updateStatus(order.id, 'DELIVERED')">
+            <i class="fa-solid fa-check-circle mr-2 text-green-600"></i>Hoàn thành
+          </li>
+          <li nz-menu-item *ngIf="canCancel(order.status)" (click)="updateStatus(order.id, 'CANCELLED')"
+              class="text-red-600 hover:bg-red-50">
+            <i class="fa-solid fa-ban mr-2"></i>Hủy đơn hàng
+          </li>
+        </ul>
+      </nz-dropdown-menu>
+    </td>
+
+    <td>
+      <div class="flex items-center gap-3">
+        <div
+          class="w-12 h-12 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-bold text-lg shadow">
+          {{ (order.userEmail?.[0] || 'K') | uppercase }}
+        </div>
+        <div class="flex-1 min-w-0">
+          <p class="font-medium text-gray-900 truncate" [title]="order.firstProductTitle || order.userEmail">
+            {{ order.firstProductTitle || 'Không có sản phẩm' }}
+          </p>
+          <p class="text-xs text-gray-500 truncate">
+            {{ order.userEmail }}
+          </p>
+          <p class="text-xs text-gray-400" *ngIf="order.totalItem !== null">
+            {{ order.totalItem }} sản phẩm
+          </p>
+        </div>
+      </div>
+    </td>
+
+    <td nzAlign="right">
+      <p class="font-bold text-green-600 text-lg">
+        {{ order.totalPrice | number:'1.0-0' }}đ
+      </p>
+    </td>
+
+    <td nzAlign="center">
+      <nz-tag [nzColor]="getStatusColor(order.status)" class="text-xs font-bold px-3 py-1">
+        {{ getStatusText(order.status) }}
+      </nz-tag>
+    </td>
+
+    <td>
+      <p class="font-medium text-gray-900">
+        {{ formatOrderDate(order.orderDate) }}
+      </p>
+    </td>
+  </tr>
+  </tbody>
+</nz-table>
+
+<!-- DÙNG CHUNG TOÀN BỘ CSS CỦA PRODUCT - KHÔNG CẦN VIẾT LẠI -->
+<style>
+  /* Product Table Styles */
+  .product-table {
+    @apply shadow-md rounded-lg overflow-hidden bg-white;
+  }
+
+  /* Table Header */
+  ::ng-deep .product-table .ant-table-thead>tr>th {
+    @apply bg-gradient-to-r from-gray-50 to-gray-100 font-semibold text-gray-700 text-sm;
+    padding: 14px 12px !important;
+    border-bottom: 2px solid #e5e7eb !important;
+  }
+
+  /* Table Body */
+  ::ng-deep .product-table .ant-table-tbody>tr>td {
+    @apply text-sm;
+    padding: 12px !important;
+    vertical-align: middle;
+  }
+
+  /* Table Row Hover */
+  ::ng-deep .product-table .ant-table-tbody>tr {
+    @apply transition-colors duration-150;
+  }
+
+  ::ng-deep .product-table .ant-table-tbody>tr:hover>td {
+    @apply bg-blue-50;
+  }
+
+  /* Zebra Striping */
+  ::ng-deep .product-table .ant-table-tbody>tr:nth-child(even) {
+    @apply bg-gray-50;
+  }
+
+  ::ng-deep .product-table .ant-table-tbody>tr:nth-child(even):hover>td {
+    @apply bg-blue-50;
+  }
+
+  /* Table Border */
+  ::ng-deep .product-table .ant-table-container {
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    margin-bottom: 0;
+  }
+
+  ::ng-deep .product-table .ant-table {
+    margin-bottom: 0 !important;
+  }
+
+  /* Sort Icon */
+  ::ng-deep .product-table .ant-table-column-sorter {
+    @apply text-gray-400;
+  }
+
+  ::ng-deep .product-table .ant-table-column-sorter-up.active,
+  ::ng-deep .product-table .ant-table-column-sorter-down.active {
+    @apply text-blue-600;
+  }
+
+  /* Empty State */
+  ::ng-deep .product-table .ant-table-placeholder {
+    @apply text-gray-500;
+    padding: 40px 20px !important;
+  }
+
+  /* Loading Overlay */
+  ::ng-deep .product-table .ant-spin-nested-loading>div>.ant-spin {
+    max-height: none !important;
+  }
+
+  /* Pagination Alignment */
+  ::ng-deep .ant-table-pagination {
+    @apply flex items-center justify-between px-4 py-3 bg-white border-t;
+    margin: 16px 0 0 0 !important;
+  }
+
+  ::ng-deep .ant-table-pagination.ant-pagination {
+    @apply my-0;
+  }
+
+  ::ng-deep .ant-pagination {
+    @apply flex items-center gap-2;
+  }
+
+  /* Page Size Selector */
+  ::ng-deep .ant-pagination-options {
+    @apply flex items-center gap-2;
+    margin-left: 8px;
+  }
+
+  ::ng-deep .ant-pagination-options-size-changer .ant-select-selector {
+    @apply h-9 flex items-center rounded-md border-gray-300;
+    min-height: 36px !important;
+    padding: 0 11px !important;
+  }
+
+  ::ng-deep .ant-pagination-options-size-changer:hover .ant-select-selector {
+    @apply border-blue-500;
+  }
+
+  /* Pagination Buttons */
+  ::ng-deep .ant-pagination-item,
+  ::ng-deep .ant-pagination-prev,
+  ::ng-deep .ant-pagination-next {
+    @apply h-9 min-w-[36px] flex items-center justify-center rounded-md border border-gray-300 transition-all duration-200;
+    line-height: 1;
+    margin: 0 4px;
+  }
+
+  ::ng-deep .ant-pagination-item:hover,
+  ::ng-deep .ant-pagination-prev:hover,
+  ::ng-deep .ant-pagination-next:hover {
+    @apply border-blue-500 text-blue-600;
+  }
+
+  ::ng-deep .ant-pagination-item-active {
+    @apply border-blue-500 bg-blue-500 text-white font-semibold;
+  }
+
+  ::ng-deep .ant-pagination-item-active:hover {
+    @apply bg-blue-600 border-blue-600;
+  }
+
+  ::ng-deep .ant-pagination-item a {
+    @apply flex items-center justify-center h-full transition-colors;
+  }
+
+  ::ng-deep .ant-pagination-jump-next,
+  ::ng-deep .ant-pagination-jump-prev {
+    @apply h-9 min-w-[36px] flex items-center justify-center;
+  }
+
+  ::ng-deep .ant-pagination-disabled,
+  ::ng-deep .ant-pagination-disabled:hover {
+    @apply opacity-40 cursor-not-allowed border-gray-300;
+  }
+
+  /* Pagination Total Text */
+  ::ng-deep .ant-pagination-total-text {
+    @apply text-sm text-gray-600;
+    margin-right: auto;
+    padding-right: 16px;
+  }
+
+  /* Dropdown Menu */
+  ::ng-deep .ant-dropdown-menu {
+    @apply shadow-lg rounded-lg;
+  }
+
+  /* Input Focus */
+  ::ng-deep .ant-input:focus,
+  ::ng-deep .ant-select-focused .ant-select-selector {
+    @apply border-blue-500 ring-2 ring-blue-100;
+  }
+
+  /* Fix Select Dropdown trong Dropdown Menu */
+  ::ng-deep .filter-dropdown-select {
+    z-index: 1060 !important;
+  }
+
+  ::ng-deep .ant-select-dropdown {
+    z-index: 1060 !important;
+  }
+
+  /* Image Placeholder */
+  .product-table img {
+    @apply transition-opacity duration-200;
+  }
+
+  .product-table img:hover {
+    @apply opacity-90;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 1024px) {
+
+    ::ng-deep .product-table .ant-table-thead>tr>th,
+    ::ng-deep .product-table .ant-table-tbody>tr>td {
+      padding: 10px 8px !important;
+      font-size: 13px;
+    }
+  }
+
+  /* Fix spacing between table and pagination */
+  ::ng-deep .product-table .ant-spin-container {
+    margin-bottom: 0 !important;
+  }
+
+  ::ng-deep .product-table .ant-table-content {
+    margin-bottom: 0 !important;
+  }
+
+  /* Căn chỉnh pagination items */
+  ::ng-deep .ant-pagination-prev .ant-pagination-item-link,
+  ::ng-deep .ant-pagination-next .ant-pagination-item-link {
+    @apply flex items-center justify-center;
+  }
+
+  ::ng-deep .ant-pagination-options-quick-jumper {
+    @apply flex items-center gap-2;
+    margin-left: 8px;
+  }
+
+  ::ng-deep .ant-pagination-options-quick-jumper input {
+    @apply h-9 rounded-md border-gray-300;
+    width: 50px !important;
+    text-align: center;
+  }
+</style>

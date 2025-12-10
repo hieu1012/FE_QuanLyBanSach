@@ -45,4 +45,8 @@ export class OrderService extends BaseHttpService {
   cancelOrder(id: number): Observable<any> {
     return this.post<any>(`orders/${id}/cancel`, {});
   }
+
+  checkoutOrder(payLoad : any): Observable<any> {
+    return this.post<any>(`cart/checkout`, payLoad);
+  }
 }

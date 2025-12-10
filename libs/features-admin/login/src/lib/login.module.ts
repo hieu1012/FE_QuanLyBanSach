@@ -4,6 +4,8 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { SwiperModule } from 'swiper/angular';
 import { LoginComponent } from './login.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NzNotificationModule } from 'ng-zorro-antd/notification';
 
 @NgModule({
   imports: [
@@ -11,6 +13,8 @@ import { LoginComponent } from './login.component';
     RouterModule.forChild([{ path: '', component: LoginComponent }]),
     FormsModule,
     SwiperModule,
+    ReactiveFormsModule,
+    NzNotificationModule
   ],
   declarations: [LoginComponent],
 })

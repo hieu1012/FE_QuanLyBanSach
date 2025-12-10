@@ -44,7 +44,8 @@ import { antDesignIcons } from './ant-design-icons';
 import { FormProductComponent } from './product/form-product/form-product.component';
 import { FormUserComponent } from './user/form-user/form-user.component';
 import { CategoryComponent } from './category/category.component';
-import { FormCategoryComponent } from './category/form-category/form-category.component'; // điều chỉnh lại path đúng nếu để thư mục khác
+import { FormCategoryComponent } from './category/form-category/form-category.component';
+import { NzDatePickerModule } from 'ng-zorro-antd/date-picker'; // điều chỉnh lại path đúng nếu để thư mục khác
 
 @NgModule({
   imports: [
@@ -53,28 +54,28 @@ import { FormCategoryComponent } from './category/form-category/form-category.co
     ReactiveFormsModule,
     RouterModule.forChild([
       {
-        path: '',
+        path     : '',
         component: DashboardComponent,
-        children: [
+        children : [
           {
-            path: 'users',
+            path     : 'users',
             component: UserComponent,
-            data: { title: 'Người dùng' },
+            data     : {title: 'Người dùng'},
           },
           {
-            path: 'products',
+            path     : 'products',
             component: ProductComponent,
-            data: { title: 'Sản phẩm' },
+            data     : {title: 'Sản phẩm'},
           },
           {
-            path: 'categories',
+            path     : 'categories',
             component: CategoryComponent,
-            data: { title: 'Loại sản phẩm' },
+            data     : {title: 'Loại sản phẩm'},
           },
           {
-            path: 'orders',
+            path     : 'orders',
             component: OrderComponent,
-            data: { title: 'Đơn hàng' },
+            data     : {title: 'Đơn hàng'},
           },
         ],
       },
@@ -107,6 +108,7 @@ import { FormCategoryComponent } from './category/form-category/form-category.co
     InputsModule,
     LabelModule,
     DropDownsModule,
+    NzDatePickerModule,
   ],
   declarations: [
     DashboardComponent,

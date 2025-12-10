@@ -62,14 +62,14 @@
 <!-- User Table -->
 <nz-table #table [nzData]="listOfUser" [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize"
   [nzPageIndex]="pageIndex" [nzFrontPagination]="false" [nzPageSizeOptions]="[10, 20, 30, 40, 50]"
-  [nzShowSizeChanger]="true" (nzQueryParams)="onQueryParamsChange($event)" [nzScroll]="{ y: '425px' }"
+  [nzShowSizeChanger]="true" (nzQueryParams)="onQueryParamsChange($event)" [nzScroll]="{ y: '415px' }"
   class="product-table">
   <thead>
     <tr>
       <th nzWidth="45px" nzAlign="center">
         <label nz-checkbox [(ngModel)]="allChecked" (ngModelChange)="checkAll($event)"></label>
       </th>
-      <th nzWidth="50px" nzAlign="center">STT</th>
+      <th nzWidth="60px" nzAlign="center">STT</th>
       <th nzWidth="100px" nzAlign="center">Thao tác</th>
       <th nzColumnKey="username" [nzSortFn]="true" nzWidth="200px">Tên đăng nhập</th>
       <th nzColumnKey="email" nzWidth="220px">Email</th>
@@ -86,7 +86,7 @@
       <td nzAlign="center">
         <label nz-checkbox [(ngModel)]="user.checked" (ngModelChange)="updateAllChecked()"></label>
       </td>
-      <td nzAlign="center">
+      <td nzAlign="center" nzWidth="50px">
         <span class="text-gray-500 font-medium">{{ i + 1 + (pageIndex - 1) * pageSize }}</span>
       </td>
       <td nzAlign="center">

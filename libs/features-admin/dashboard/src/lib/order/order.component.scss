@@ -1,0 +1,29 @@
+::ng-deep .ant-table-pagination {
+  display: flex;
+  align-items: center;
+}
+
+::ng-deep .ant-pagination-options {
+  display: flex;
+  align-items: center;
+}
+
+/* Giúp dropdown chọn page-size và các nút trang cùng độ cao */
+::ng-deep .ant-pagination-options-size-changer .ant-select-selector {
+  height: 32px !important;    /* hoặc 36px nếu thấy đẹp hơn */
+  align-items: center;
+  display: flex;
+}
+::ng-deep .ant-pagination-item,
+::ng-deep .ant-pagination-prev,
+::ng-deep .ant-pagination-next,
+::ng-deep .ant-pagination-jump-next,
+::ng-deep .ant-pagination-jump-prev {
+  height: 32px;
+  min-width: 32px;
+  line-height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
