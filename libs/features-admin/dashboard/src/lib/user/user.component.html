@@ -78,7 +78,7 @@
       <th nzColumnKey="address" nzWidth="200px">Địa chỉ</th>
       <th nzColumnKey="role" nzWidth="120px">Vai trò</th>
       <th nzAlign="center" [nzSortFn]="true" nzWidth="110px">Trạng thái</th>
-      <th nzColumnKey="createdAt" nzWidth="160px">Ngày tạo</th>
+<!--      <th nzColumnKey="createdAt" nzWidth="160px">Ngày tạo</th>-->
     </tr>
   </thead>
   <tbody>
@@ -99,6 +99,10 @@
             <li nz-menu-item (click)="onAddNew(user)">
               <i class="fa-solid fa-pen-to-square mr-2"></i>
               Chỉnh sửa
+            </li>
+            <li nz-menu-item (click)="changePassword(user)">
+              <i class="fa-solid fa-pen-to-square mr-2"></i>
+              Đổi mật khẩu
             </li>
             <li nz-menu-item (click)="onDeleteUser(user.id)">
               <i class="fa-solid fa-trash mr-2" style="color:#ff4d4f"></i>
@@ -148,9 +152,9 @@
           {{ user.isActive ? 'Hoạt động' : 'Tạm ngưng' }}
         </span>
       </td>
-      <td>
-        <span>{{ user.createdAt | date:'dd/MM/yyyy HH:mm' }}</span>
-      </td>
+<!--      <td>-->
+<!--        <span>{{ user.createdAt | date:'dd/MM/yyyy HH:mm' }}</span>-->
+<!--      </td>-->
     </tr>
   </tbody>
 </nz-table>

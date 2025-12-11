@@ -1,13 +1,181 @@
+<!--<div class="flex flex-col h-full max-h-[75vh]">-->
+<!--  &lt;!&ndash; Nội dung form &ndash;&gt;-->
+<!--  <div class="flex-1 overflow-y-auto p-6">-->
+<!--    <form [formGroup]="productForm" nz-form nzLayout="vertical">-->
+
+<!--      &lt;!&ndash; Tên sản phẩm &ndash;&gt;-->
+<!--      <nz-form-item>-->
+<!--        <nz-form-label nzRequired nzFor="title">Tên sản phẩm</nz-form-label>-->
+<!--        <nz-form-control nzErrorTip="Vui lòng nhập tên sản phẩm">-->
+<!--          <input nz-input id="title" formControlName="title" placeholder="VD: Sách Lập Trình C Cơ Bản" />-->
+<!--        </nz-form-control>-->
+<!--      </nz-form-item>-->
+
+<!--      &lt;!&ndash; Danh mục &ndash;&gt;-->
+<!--      <nz-form-item>-->
+<!--        <nz-form-label nzRequired>Danh mục</nz-form-label>-->
+<!--        <nz-form-control nzErrorTip="Vui lòng chọn danh mục">-->
+<!--          <nz-select formControlName="categoryId" nzPlaceHolder="Chọn danh mục" nzShowSearch nzAllowClear>-->
+<!--            <nz-option *ngFor="let cat of categoryList" [nzValue]="cat.id" [nzLabel]="cat.name"></nz-option>-->
+<!--          </nz-select>-->
+<!--        </nz-form-control>-->
+<!--      </nz-form-item>-->
+
+<!--      &lt;!&ndash; Mô tả &ndash;&gt;-->
+<!--      <nz-form-item>-->
+<!--        <nz-form-label>Mô tả sản phẩm</nz-form-label>-->
+<!--        <nz-form-control>-->
+<!--          <textarea-->
+<!--            nz-input-->
+<!--            formControlName="description"-->
+<!--            placeholder="Nhập mô tả chi tiết (không bắt buộc)"-->
+<!--            [nzAutosize]="{ minRows: 3, maxRows: 8 }">-->
+<!--          </textarea>-->
+<!--        </nz-form-control>-->
+<!--      </nz-form-item>-->
+
+<!--      &lt;!&ndash; Giá gốc + % giảm giá &ndash;&gt;-->
+<!--      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">-->
+<!--        <nz-form-item>-->
+<!--          <nz-form-label nzRequired>Giá gốc (VNĐ)</nz-form-label>-->
+<!--          <nz-form-control nzErrorTip="Giá phải ≥ 1.000">-->
+<!--            <nz-input-number-->
+<!--              formControlName="price"-->
+<!--              [nzMin]="1000"-->
+<!--              [nzStep]="1000"-->
+<!--              [nzPrecision]="0"-->
+<!--              [nzFormatter]="formatterVND"-->
+<!--              [nzParser]="parserVND"-->
+<!--              class="w-full"-->
+<!--              placeholder="150,000">-->
+<!--            </nz-input-number>-->
+<!--          </nz-form-control>-->
+<!--        </nz-form-item>-->
+
+<!--        <nz-form-item>-->
+<!--          <nz-form-label>Giảm giá (%)</nz-form-label>-->
+<!--          <nz-form-control nzErrorTip="0 đến 100%">-->
+<!--            <nz-input-number-->
+<!--              formControlName="discount"-->
+<!--              [nzMin]="0"-->
+<!--              [nzMax]="100"-->
+<!--              [nzStep]="1"-->
+<!--              [nzPrecision]="1"-->
+<!--              class="w-full">-->
+<!--            </nz-input-number>-->
+<!--          </nz-form-control>-->
+<!--        </nz-form-item>-->
+<!--      </div>-->
+
+<!--      &lt;!&ndash; Preview giá bán &ndash;&gt;-->
+<!--      <div *ngIf="discountPercent > 0" class="bg-gradient-to-r from-emerald-50 to-teal-50 border border-emerald-200 rounded-2xl p-6 mb-6 shadow-md">-->
+<!--        <div class="grid grid-cols-2 gap-8 text-center">-->
+<!--          <div>-->
+<!--            <p class="text-gray-600 text-sm mb-1">Giá bán</p>-->
+<!--            <p class="text-4xl font-bold text-emerald-600">{{ discountPrice | number:'1.0-0' }} ₫</p>-->
+<!--          </div>-->
+<!--          <div>-->
+<!--            <p class="text-gray-600 text-sm mb-1">Tiết kiệm</p>-->
+<!--            <p class="text-4xl font-bold text-red-600">{{ savedAmount | number:'1.0-0' }} ₫</p>-->
+<!--            <p class="text-lg text-gray-500">-{{ discountPercent }}%</p>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+
+<!--      &lt;!&ndash; Tồn kho &ndash;&gt;-->
+<!--      <nz-form-item>-->
+<!--        <nz-form-label nzRequired>Tồn kho</nz-form-label>-->
+<!--        <nz-form-control nzErrorTip="Số lượng phải ≥ 0">-->
+<!--          <nz-input-number formControlName="stock" [nzMin]="0" [nzStep]="1" class="w-full"></nz-input-number>-->
+<!--        </nz-form-control>-->
+<!--      </nz-form-item>-->
+
+<!--      &lt;!&ndash; Upload ảnh &ndash;&gt;-->
+<!--      <nz-form-item>-->
+<!--        <nz-form-label>Ảnh sản phẩm <span class="text-gray-400 text-xs">(tối đa 10 ảnh)</span></nz-form-label>-->
+<!--        <nz-form-control>-->
+<!--          <nz-upload-->
+<!--            nzType="drag"-->
+<!--            [nzMultiple]="true"-->
+<!--            [(nzFileList)]="fileList"-->
+<!--            [nzBeforeUpload]="beforeUpload"-->
+<!--            [nzShowButton]="fileList.length < 10"-->
+<!--            [nzLimit]="10"-->
+<!--            [nzFileType]="'image/jpeg,image/png,image/webp'"-->
+<!--            [nzSize]="5120">-->
+<!--            <p class="ant-upload-drag-icon">-->
+<!--              <i nz-icon nzType="inbox" class="text-5xl text-gray-400"></i>-->
+<!--            </p>-->
+<!--            <p class="ant-upload-text text-lg">Kéo thả hoặc click để thêm ảnh</p>-->
+<!--            <p class="ant-upload-hint">JPG, PNG, WEBP - Tối đa 5MB/ảnh</p>-->
+<!--          </nz-upload>-->
+
+<!--          &lt;!&ndash; Hiển thị ảnh hiện tại khi edit &ndash;&gt;-->
+<!--          <div *ngIf="existingImages.length > 0" class="mt-6">-->
+<!--            <p class="text-sm font-semibold text-gray-700 mb-3">Ảnh hiện tại:</p>-->
+<!--            <div class="flex flex-wrap gap-4">-->
+<!--              <div *ngFor="let img of existingImages; let i = index" class="relative group">-->
+<!--                <img [src]="img.url" class="h-32 w-32 object-cover rounded-xl border-2 border-dashed border-gray-300 shadow" />-->
+<!--                <button-->
+<!--                  type="button"-->
+<!--                  (click)="removeExistingImage(i)"-->
+<!--                  class="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition">-->
+<!--                  <i nz-icon nzType="delete" nzTheme="fill"></i>-->
+<!--                </button>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--            <p class="text-xs text-gray-500 mt-2">Ảnh này sẽ bị xóa nếu bạn bỏ tick checkbox bên dưới</p>-->
+<!--          </div>-->
+<!--        </nz-form-control>-->
+<!--      </nz-form-item>-->
+
+<!--      &lt;!&ndash; Giữ ảnh cũ khi edit &ndash;&gt;-->
+<!--      <nz-form-item *ngIf="product">-->
+<!--        <nz-form-control>-->
+<!--          <label nz-checkbox [(ngModel)]="keepExistingImages" [ngModelOptions]="{standalone: true}">-->
+<!--            <strong class="text-blue-600">Giữ lại tất cả ảnh hiện tại</strong>-->
+<!--            <span class="text-gray-500 ml-2">(bỏ tick = xóa hết ảnh cũ)</span>-->
+<!--          </label>-->
+<!--        </nz-form-control>-->
+<!--      </nz-form-item>-->
+
+<!--      &lt;!&ndash; Trạng thái &ndash;&gt;-->
+<!--      <nz-form-item>-->
+<!--        <nz-form-control>-->
+<!--          <label nz-checkbox formControlName="isActive">-->
+<!--            Còn kinh doanh (hiển thị trên website)-->
+<!--          </label>-->
+<!--        </nz-form-control>-->
+<!--      </nz-form-item>-->
+
+<!--    </form>-->
+<!--  </div>-->
+
+<!--  &lt;!&ndash; Footer &ndash;&gt;-->
+<!--  <div class="px-6 py-4 border-t bg-white flex justify-end gap-3">-->
+<!--    <button nz-button nzType="default" (click)="cancel()">Hủy</button>-->
+<!--    <button-->
+<!--      nz-button-->
+<!--      nzType="primary"-->
+<!--      (click)="submitForm()"-->
+<!--      [nzLoading]="isSubmitting"-->
+<!--      [disabled]="productForm.invalid || isSubmitting">-->
+<!--      {{ product ? 'Cập nhật sản phẩm' : 'Thêm sản phẩm mới' }}-->
+<!--    </button>-->
+<!--  </div>-->
+<!--</div>-->
+
+
 <div class="flex flex-col h-full max-h-[75vh]">
-  <!-- Form content - scrollable -->
+  <!-- Nội dung form -->
   <div class="flex-1 overflow-y-auto p-6">
-    <form [formGroup]="productForm" (ngSubmit)="submitForm()" nz-form nzLayout="vertical">
+    <form [formGroup]="productForm" nz-form nzLayout="vertical">
 
       <!-- Tên sản phẩm -->
       <nz-form-item>
-        <nz-form-label nzRequired>Tên sản phẩm</nz-form-label>
+        <nz-form-label nzRequired nzFor="title">Tên sản phẩm</nz-form-label>
         <nz-form-control nzErrorTip="Vui lòng nhập tên sản phẩm">
-          <input nz-input formControlName="title" placeholder="Nhập tên sản phẩm" />
+          <input nz-input id="title" formControlName="title" placeholder="VD: Sách Lập Trình C Cơ Bản" />
         </nz-form-control>
       </nz-form-item>
 
@@ -15,7 +183,7 @@
       <nz-form-item>
         <nz-form-label nzRequired>Danh mục</nz-form-label>
         <nz-form-control nzErrorTip="Vui lòng chọn danh mục">
-          <nz-select formControlName="categoryId" nzPlaceHolder="Chọn danh mục" nzShowSearch>
+          <nz-select formControlName="categoryId" nzPlaceHolder="Chọn danh mục" nzShowSearch nzAllowClear>
             <nz-option *ngFor="let cat of categoryList" [nzValue]="cat.id" [nzLabel]="cat.name"></nz-option>
           </nz-select>
         </nz-form-control>
@@ -23,109 +191,136 @@
 
       <!-- Mô tả -->
       <nz-form-item>
-        <nz-form-label>Mô tả</nz-form-label>
+        <nz-form-label>Mô tả sản phẩm</nz-form-label>
         <nz-form-control>
-          <textarea nz-input formControlName="description" placeholder="Nhập mô tả sản phẩm (không bắt buộc)"
-                    [nzAutosize]="{ minRows: 3, maxRows: 6 }"></textarea>
+          <textarea nz-input formControlName="description"
+                    placeholder="Nhập mô tả chi tiết (không bắt buộc)"
+                    [nzAutosize]="{ minRows: 3, maxRows: 8 }"></textarea>
         </nz-form-control>
       </nz-form-item>
 
-      <!-- Giá gốc -->
-      <nz-form-item>
-        <nz-form-label nzRequired>Giá gốc (VNĐ)</nz-form-label>
-        <nz-form-control nzErrorTip="Giá phải lớn hơn 0">
-          <nz-input-number
-            formControlName="price"
-            [nzMin]="0.01"
-            [nzStep]="10000"
-            [nzPrecision]="0"
-            [nzFormatter]="formatterVND"
-            [nzParser]="parserVND"
-            placeholder="200,000"
-            class="w-full">
-          </nz-input-number>
-        </nz-form-control>
-      </nz-form-item>
+      <!-- Giá gốc + Giảm giá -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <nz-form-item>
+          <nz-form-label nzRequired>Giá gốc (VNĐ)</nz-form-label>
+          <nz-form-control nzErrorTip="Giá phải ≥ 1.000">
+            <nz-input-number formControlName="price"
+                             [nzMin]="1000"
+                             [nzStep]="1000"
+                             [nzPrecision]="0"
+                             [nzFormatter]="formatterVND"
+                             [nzParser]="parserVND"
+                             class="w-full"
+                             placeholder="150,000">
+            </nz-input-number>
+          </nz-form-control>
+        </nz-form-item>
 
-      <!-- % Giảm giá -->
-      <nz-form-item>
-        <nz-form-label>
-          Giảm giá (%)
-          <span class="text-gray-400 text-sm ml-2">0 - 100%</span>
-        </nz-form-label>
-        <nz-form-control nzErrorTip="Nhập từ 0 đến 100%">
-          <nz-input-number
-            formControlName="discount"
-            [nzMin]="0"
-            [nzMax]="100"
-            [nzStep]="5"
-            [nzPrecision]="1"
-            placeholder="0"
-            class="w-full">
-          </nz-input-number>
-        </nz-form-control>
-      </nz-form-item>
+        <nz-form-item>
+          <nz-form-label>Giảm giá (%)</nz-form-label>
+          <nz-form-control nzErrorTip="0 đến 100%">
+            <nz-input-number formControlName="discount"
+                             [nzMin]="0"
+                             [nzMax]="100"
+                             [nzStep]="1"
+                             class="w-full">
+            </nz-input-number>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
 
-      <!-- Hiển thị kết quả tính toán -->
-      <div *ngIf="discountPercent > 0" class="bg-gray-50 border rounded p-4 mb-4">
-        <div class="grid grid-cols-2 gap-4 text-center">
+      <!-- Preview giá bán -->
+      <div *ngIf="discountPercent > 0"
+           class="bg-gradient-to-r from-emerald-50 to-teal-50 border border-emerald-200 rounded-2xl p-6 mb-6 shadow-md">
+        <div class="grid grid-cols-2 gap-8 text-center">
           <div>
-            <div class="text-sm text-gray-600 mb-1">Giá bán</div>
-            <div class="text-xl font-semibold text-green-600">
-              {{ discountPrice | number:'1.0-0' }} ₫
-            </div>
+            <p class="text-gray-600 text-sm mb-1">Giá bán</p>
+            <p class="text-4xl font-bold text-emerald-600">{{ discountPrice | number:'1.0-0' }} ₫</p>
           </div>
           <div>
-            <div class="text-sm text-gray-600 mb-1">Tiết kiệm</div>
-            <div class="text-xl font-semibold text-red-600">
-              {{ savedAmount | number:'1.0-0' }} ₫ (-{{ discountPercent }}%)
-            </div>
+            <p class="text-gray-600 text-sm mb-1">Tiết kiệm</p>
+            <p class="text-4xl font-bold text-red-600">{{ savedAmount | number:'1.0-0' }} ₫</p>
+            <p class="text-lg text-gray-500">-{{ discountPercent }}%</p>
           </div>
         </div>
       </div>
 
       <!-- Tồn kho -->
       <nz-form-item>
-        <nz-form-label nzRequired>Số lượng tồn kho</nz-form-label>
-        <nz-form-control nzErrorTip="Vui lòng nhập số lượng">
-          <nz-input-number
-            formControlName="stock"
-            [nzMin]="0"
-            [nzStep]="1"
-            class="w-full">
-          </nz-input-number>
+        <nz-form-label nzRequired>Tồn kho</nz-form-label>
+        <nz-form-control nzErrorTip="Số lượng phải ≥ 0">
+          <nz-input-number formControlName="stock" [nzMin]="0" [nzStep]="1" class="w-full"></nz-input-number>
         </nz-form-control>
       </nz-form-item>
 
-      <!-- Link ảnh -->
+      <!-- Upload ảnh mới -->
       <nz-form-item>
-        <nz-form-label>Link ảnh sản phẩm</nz-form-label>
+        <nz-form-label>Ảnh sản phẩm <span class="text-gray-400 text-xs">(tối đa 10 ảnh)</span></nz-form-label>
         <nz-form-control>
-          <input nz-input formControlName="imageName" placeholder="Nhập URL ảnh" />
+          <nz-upload nzType="drag"
+                     [nzMultiple]="true"
+                     [(nzFileList)]="fileList"
+                     [nzBeforeUpload]="beforeUpload"
+                     [nzShowButton]="fileList.length < 10"
+                     [nzLimit]="10">
+            <p class="ant-upload-drag-icon">
+              <i nz-icon nzType="inbox" class="text-5xl text-gray-400"></i>
+            </p>
+            <p class="ant-upload-text text-lg">Kéo thả hoặc click để thêm ảnh</p>
+            <p class="ant-upload-hint">JPG, PNG, WEBP – Tối đa 5MB/ảnh</p>
+          </nz-upload>
+
+          <!-- Hiển thị ảnh hiện tại khi edit -->
+          <div *ngIf="existingImages.length > 0" class="mt-6">
+            <p class="text-sm font-semibold text-gray-700 mb-3">Ảnh hiện tại ({{ existingImages.length }} ảnh):</p>
+            <div class="flex flex-wrap gap-4">
+              <div *ngFor="let url of existingImages; let i = index" class="relative group">
+                <img [src]="url"
+                     class="h-32 w-32 object-cover rounded-xl border-2 border-gray-300 shadow hover:shadow-lg transition" />
+                <button type="button"
+                        (click)="removeExistingImage(i)"
+                        class="absolute top-1 right-1 bg-red-600 text-white rounded-full p-1.5 opacity-0 group-hover:opacity-100 transition">
+                  <i nz-icon nzType="close" class="text-sm"></i>
+                </button>
+              </div>
+            </div>
+            <p class="text-xs text-gray-500 mt-2">
+              {{ keepExistingImages ? 'Sẽ giữ lại' : 'Sẽ xóa hết' }} ảnh hiện tại khi lưu.
+            </p>
+          </div>
+        </nz-form-control>
+      </nz-form-item>
+
+      <!-- Giữ ảnh cũ khi edit -->
+      <nz-form-item *ngIf="product">
+        <nz-form-control>
+          <label nz-checkbox [(ngModel)]="keepExistingImages" [ngModelOptions]="{standalone: true}">
+            <strong class="text-blue-600">Giữ lại tất cả ảnh hiện tại</strong>
+<!--            <span class="text-gray-500 ml-2">(bỏ tick = xóa hết ảnh cũ)</span>-->
+          </label>
         </nz-form-control>
       </nz-form-item>
 
       <!-- Trạng thái -->
-      <nz-form-item>
-        <nz-form-control>
-          <label nz-checkbox formControlName="isActive">
-            Còn kinh doanh (hiển thị trên trang chủ)
-          </label>
-        </nz-form-control>
-      </nz-form-item>
+<!--      <nz-form-item>-->
+<!--        <nz-form-control>-->
+<!--          <label nz-checkbox formControlName="isActive">-->
+<!--            Còn kinh doanh (hiển thị trên website)-->
+<!--          </label>-->
+<!--        </nz-form-control>-->
+<!--      </nz-form-item>-->
 
     </form>
   </div>
 
   <!-- Footer -->
-  <div class="px-6 py-4 border-t bg-white">
-    <div class="flex justify-end gap-3">
-      <button nz-button nzType="default" (click)="cancel()">
-        Huỷ
-      </button>
-      <button nz-button nzType="primary" (click)="submitForm()" [disabled]="productForm.invalid">
-        Lưu sản phẩm
-      </button>
-    </div>
+  <div class="px-6 py-4 border-t bg-white flex justify-end gap-3">
+    <button nz-button nzType="default" (click)="cancel()">Hủy</button>
+    <button nz-button nzType="primary"
+            (click)="submitForm()"
+            [nzLoading]="isSubmitting"
+            [disabled]="productForm.invalid || isSubmitting">
+      {{ product ? 'Cập nhật sản phẩm' : 'Thêm sản phẩm mới' }}
+    </button>
   </div>
 </div>

@@ -54,4 +54,9 @@ export class UserService extends BaseHttpService {
   deleteUser(id: number): Observable<any> {
     return this.delete<any>(`users/${id}`);
   }
+
+  changePassword(id: number, newPassword: string, confirmPassword: string ): Observable<any> {
+    const payload = { newPassword : newPassword, confirmPassword: confirmPassword };
+    return this.put<any>(`users/${id}/admin-change-password`, { ...payload });
+  }
 }

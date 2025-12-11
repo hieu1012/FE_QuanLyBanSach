@@ -12,6 +12,7 @@ export class FormUserComponent implements OnInit {
 
   userForm!: FormGroup;
 
+  hidePass = true;
   // Danh sách vai trò
   readonly roleOptions = [
     { value: 'USER', label: 'Người dùng' },

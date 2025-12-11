@@ -3,7 +3,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { UserService, UserPayload } from '@emi/features-admin/shared/data-access';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
-import { FormUserComponent } from './form-user/form-user.component'; // import form user component
+import { FormUserComponent } from './form-user/form-user.component';
+import { FormChangePasswordComponent } from './form-change-password/form-change-password.component'; // import form user component
 
 @Component({
   selector: 'emi-user',
@@ -181,6 +182,28 @@ export class UserComponent implements OnInit {
             this.notification.error('Lỗi', err.error?.message || 'Không thể xóa người dùng');
           }
         });
+      }
+    });
+  }
+
+  changePassword(user: any): void {
+    const modal = this.modal.create({
+      nzTitle: ``,
+      nzContent: FormChangePasswordComponent,
+      nzComponentParams: {
+        userId: user.id,
+        username: user.username
+      },
+      nzWidth: 500,
+      nzFooter: null,
+      nzCentered: true,
+      nzMaskClosable: false
+    });
+
+    modal.afterClose.subscribe((result: boolean | null) => {
+      if (result === true) {
+        this.notification.success('Thành công', `Mật khẩu của ${user.username} đã được thay đổi!`);
+        // Có thể reload danh sách user nếu cần
       }
     });
   }
